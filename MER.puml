@@ -1,0 +1,60 @@
+@startuml
+!theme plain
+
+entity "Paciente" as Paciente {
+  *id_paciente : INT
+  --
+  nombre : VARCHAR
+  rut : VARCHAR
+  edad : INT
+  direccion : VARCHAR
+}
+
+entity "Sintoma" as Sintoma {
+  *id_sintoma : INT
+  --
+  nombre : VARCHAR
+  descripcion : TEXT
+}
+
+entity "Diagnostico" as Diagnostico {
+  *id_diagnostico : INT
+  --
+  descripcion : TEXT
+  fecha : DATE
+  paciente_id : INT
+  usuario_id : INT
+}
+
+entity "Historial" as Historial {
+  *id_historial : INT
+  --
+  paciente_id : INT
+  diagnostico_id : INT
+  tratamientos : TEXT
+  fecha : DATE
+}
+
+entity "Usuario" as Usuario {
+  *id_usuario : INT
+  --
+  nombre : VARCHAR
+  email : VARCHAR
+  password : VARCHAR
+  rol : ENUM(medico, visitante)
+}
+
+entity "Diagnostico_Sintoma" as DiagnosticoSintoma {
+  *id_diagnostico : INT
+  *id_sintoma : INT
+}
+
+' Relaciones
+Paciente ||--o{ Diagnostico : tiene
+Paciente ||--o{ Historial : posee
+Diagnostico ||--o{ Historial : genera
+Usuario ||--o{ Diagnostico : crea
+Diagnostico ||--o{ DiagnosticoSintoma : incluye
+Sintoma ||--o{ DiagnosticoSintoma : describe
+
+@enduml
