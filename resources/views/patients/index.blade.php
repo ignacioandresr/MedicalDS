@@ -19,7 +19,6 @@
                 <th>Fecha de Nacimiento</th>
                 <th>Género</th>
                 <th>Dirección</th>
-                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +26,7 @@
                 <tr>
                     <td>{{ $patient->rut }}</td>
                     <td>{{ $patient->name }}</td>
-                    <td>{{ $patient->birth_date }}</td>
+                    <td>{{ $patient->birth_date ->format('d-m-Y') }}</td>
                     <td>{{ $patient->gender }}</td>
                     <td>{{ $patient->adress }}</td>
                     <td>

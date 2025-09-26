@@ -7,7 +7,7 @@
  {
  use HasFactory;
   protected $fillable = ['rut', 'name', 'birth_date','gender', 'adress'];
-  protected $casts = ['birth_date' => 'date', 'year'];
+  protected $casts = ['birth_date' => 'date'];
  }
 
 
