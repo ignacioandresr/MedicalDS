@@ -1,64 +1,56 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Modelo Entidad-Relación (MER) del Sistema Médico
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este documento describe el Modelo Entidad-Relación (MER) del sistema médico, definido en el archivo `MER.puml` utilizando PlantUML. El diagrama representa las entidades principales y sus relaciones dentro de la base de datos del sistema.
 
-## About Laravel
+## Entidades
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Paciente
+Representa a los individuos que reciben atención médica.
+- `id_paciente` (INT): Identificador único del paciente (Clave Primaria).
+- `nombre` (VARCHAR): Nombre completo del paciente.
+- `rut` (VARCHAR): Rol Único Tributario del paciente.
+- `edad` (INT): Edad del paciente.
+- `direccion` (VARCHAR): Dirección de residencia del paciente.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Sintoma
+Describe los síntomas que un paciente puede presentar.
+- `id_sintoma` (INT): Identificador único del síntoma (Clave Primaria).
+- `nombre` (VARCHAR): Nombre del síntoma.
+- `descripcion` (TEXT): Descripción detallada del síntoma.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Diagnostico
+Registra los diagnósticos realizados a los pacientes.
+- `id_diagnostico` (INT): Identificador único del diagnóstico (Clave Primaria).
+- `descripcion` (TEXT): Descripción del diagnóstico.
+- `fecha` (DATE): Fecha en que se realizó el diagnóstico.
+- `paciente_id` (INT): Clave Foránea que referencia al `Paciente` al que se le realizó el diagnóstico.
+- `usuario_id` (INT): Clave Foránea que referencia al `Usuario` (médico) que realizó el diagnóstico.
 
-## Learning Laravel
+### Historial
+Almacena el historial médico de los pacientes.
+- `id_historial` (INT): Identificador único del historial (Clave Primaria).
+- `paciente_id` (INT): Clave Foránea que referencia al `Paciente` al que pertenece el historial.
+- `diagnostico_id` (INT): Clave Foránea que referencia al `Diagnostico` asociado a este historial.
+- `tratamientos` (TEXT): Descripción de los tratamientos aplicados.
+- `fecha` (DATE): Fecha del registro en el historial.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Usuario
+Representa a los usuarios del sistema, como médicos o visitantes.
+- `id_usuario` (INT): Identificador único del usuario (Clave Primaria).
+- `nombre` (VARCHAR): Nombre del usuario.
+- `email` (VARCHAR): Correo electrónico del usuario.
+- `password` (VARCHAR): Contraseña del usuario (debería estar hasheada).
+- `rol` (ENUM('medico', 'visitante')): Rol del usuario en el sistema.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Diagnostico_Sintoma
+Tabla de unión para la relación muchos a muchos entre `Diagnostico` y `Sintoma`.
+- `id_diagnostico` (INT): Clave Foránea que referencia al `Diagnostico`.
+- `id_sintoma` (INT): Clave Foránea que referencia al `Sintoma`.
 
-## Laravel Sponsors
+## Relaciones
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- **Paciente tiene Diagnostico (1:N):** Un paciente puede tener múltiples diagnósticos, pero un diagnóstico pertenece a un solo paciente.
+- **Paciente posee Historial (1:N):** Un paciente puede tener múltiples registros en su historial, pero un registro de historial pertenece a un solo paciente.
+- **Diagnostico genera Historial (1:N):** Un diagnóstico puede generar múltiples entradas en el historial (aunque en este modelo parece ser 1:1 o 1:N dependiendo de la interpretación, se asume que un diagnóstico puede ser parte de varios historiales o un historial puede contener varios diagnósticos).
+- **Usuario crea Diagnostico (1:N):** Un usuario (médico) puede crear múltiples diagnósticos, pero un diagnóstico es creado por un solo usuario.
+- **Diagnostico incluye Sintoma (N:M a través de Diagnostico_Sintoma):** Un diagnóstico puede estar asociado a múltiples síntomas, y un síntoma puede estar presente en múltiples diagnósticos.
