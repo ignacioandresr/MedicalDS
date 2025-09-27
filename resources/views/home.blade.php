@@ -1,24 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <p class="fw-bold fs-6">Bienvenido</p>
-                </div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
+        <div class="col-auto">
+            <p class="text-center welcome-message">Página princial MedicalDS</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 justify-content-center text-center">
+              <a class="btn btn-primary" href="/patients">Agregar Pacientes</a>
         </div>
     </div>
 </div>

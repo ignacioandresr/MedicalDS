@@ -1,18 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-
-    <h1>Información del Paciente</h1>
-    <p>RUT: {{ $patient->rut }}</p>
-    <p>Nombre: {{ $patient->name }}</p>
-    <p>Fecha de Nacimiento: {{ $patient->birth_date }}</p>
-    <p>Sexo: {{ $patient->gender }}</p>
-    <p>Dirección: {{ $patient->adress }}</p>
-
-
-    <a href="{{ route('patients.index') }}">Volver a la lista</a>
-
-
+<div class="container-fluid patients-index pt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="fw-bold text-center">Información del Paciente</h1>
+                <h4><span class="fw-bold">RUT:</span> {{ $patient->rut }}</h3>
+                <h4><span class="fw-bold">Nombre:</span> {{ $patient->name }}</h4>
+                <h4><span class="fw-bold">Fecha de Nacimiento:</span> {{ $patient->birth_date }}</h4>
+                <h4><span class="fw-bold">Sexo:</span> {{ $patient->gender }}</h4>
+                <h4><span class="fw-bold">Dirección:</span> {{ $patient->adress }}</h4>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <a class="btn btn-primary mt-3" href="{{ route('patients.index') }}">Volver a la lista</a>
+        </div>
+    </div>
 </div>
 @endsection

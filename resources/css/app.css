@@ -1,0 +1,31 @@
+body {
+    font-family: 'Nunito', sans-serif;
+    margin: 0;
+    background-color: #57B7F2;
+}
+.navbar {
+    background-color: #C4E1F2;
+    padding: 1rem;
+    color: #1154D9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar a {
+    color: #1154D9;
+    text-decoration: none;
+    margin-left: 1rem;
+}
+.welcome-container {
+    display: flex;
+    background-color: #1154D9;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 120px);
+    text-align: center;
+}
+.welcome-message {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #1154D9;
+}

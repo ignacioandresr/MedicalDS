@@ -6,7 +6,8 @@ entity "Paciente" as Paciente {
   --
   nombre : VARCHAR
   rut : VARCHAR
-  edad : INT
+  fecha_nacimiento : DATE
+  telefono : INT
   direccion : VARCHAR
 }
 
@@ -49,7 +50,6 @@ entity "Diagnostico_Sintoma" as DiagnosticoSintoma {
   *id_sintoma : INT
 }
 
-' Relaciones
 Paciente ||--o{ Diagnostico : tiene
 Paciente ||--o{ Historial : posee
 Diagnostico ||--o{ Historial : genera
