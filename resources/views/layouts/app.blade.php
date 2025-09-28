@@ -9,12 +9,13 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    @stack('styles')
 </head>
 <body>
     <div id="app">
-    <nav class="navbar navbar-expand-lg py-3"">
+        <nav class="navbar navbar-expand-lg py-3">
             <div class="container">
-                <a class="navbar-brand fw-bold" href="/" style="font-size: 1.5rem;">MedicalDS</a>
+                <a class="navbar-brand fw-bold custom" href="/" style="font-size: 1.5rem;">MedicalDS</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -50,11 +51,12 @@
             </div>
         </nav>
 
-        <main class="">
+        <main class="container py-4">
             @yield('content')
         </main>
     </div>
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    @stack('scripts')
 </body>
 </html>
