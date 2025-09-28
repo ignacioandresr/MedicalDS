@@ -3,37 +3,16 @@
  namespace App\Models;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
  use Illuminate\Database\Eloquent\Model;
+ class Diagnostic extends Model
+ {
+ use HasFactory;
+  protected $fillable = ['description', 'date', 'patient_id', 'user_id'];
+  protected $casts = ['date' => 'date'];
 
-
-class Patient extends Model
-{
-    use HasFactory;
-
-    protected $fillable = [
-        'rut',
-        'name',
-        'apellido_paterno',
-        'apellido_materno',
-        'birth_date',
-        'gender',
-        'adress',
-    ];
-
-    protected $casts = [
-        'birth_date' => 'date',
-    ];
-
-    public function diagnostics()
+    public function patient()
     {
-        return $this->hasMany(Diagnostic::class);
+        return $this->belongsTo(Patient::class);
     }
-
-
-    public function getRouteKeyName()
-    {
-        return 'rut';
-    }
-
     /**
      * Mutator: guarda el RUT sin puntos ni guion en la BD
      */
@@ -61,4 +40,4 @@ class Patient extends Model
 
         return $cuerpo . '-' . strtoupper($dv);
     }
-}
+ }

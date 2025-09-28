@@ -27,7 +27,7 @@
                             <th>Apellido Paterno</th>
                             <th>Apellido Materno</th>
                             <th>Fecha de Nacimiento</th>
-                            <th>Género</th>
+                            <th>Sexo</th>
                             <th>Dirección</th>
                             <th>Acciones</th>
                         </tr>

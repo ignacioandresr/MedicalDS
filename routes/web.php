@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\DiagnosticController;
 
 Route::resource('patients', PatientController::class);
+Route::resource('diagnostics', DiagnosticController::class);
 
 
 

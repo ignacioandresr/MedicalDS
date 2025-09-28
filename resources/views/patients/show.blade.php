@@ -11,7 +11,7 @@
                 <h6><span class="fw-bold">Apellido Paterno::</span> {{ $patient->apellido_paterno }}</h6>
                 <h6><span class="fw-bold">Apellido Materno:</span> {{ $patient->apellido_materno }}</h6>
                 <h6><span class="fw-bold">Fecha de Nacimiento:</span> {{ $patient->birth_date ->format('d-m-Y') }}</h6>
-                <h6><span class="fw-bold">Sexo:</span> {{ $patient->gender }}</h6>
+                <h6><span class="fw-bold">Genero:</span> {{ $patient->gender }}</h6>
                 <h6><span class="fw-bold">Dirección:</span> {{ $patient->adress }}</h6>
             </div>
         </div>
