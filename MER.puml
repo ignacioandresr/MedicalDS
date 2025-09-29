@@ -5,6 +5,8 @@ entity "Paciente" as Paciente {
   *id_paciente : INT
   --
   nombre : VARCHAR
+  apellido_paterno : VARCHAR
+  apellido_materno : VARCHAR
   rut : VARCHAR
   fecha_nacimiento : DATE
   telefono : INT

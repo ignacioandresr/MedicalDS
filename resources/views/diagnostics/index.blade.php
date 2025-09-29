@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row mb-3">
         <div class="col">
-            <h1>Diagnosticos</h1>
+            <h1 class="fw-bold">Diagnosticos</h1>
         </div>
         <div class="col text-end">
             <a href="{{ route('diagnostics.create') }}" class="btn btn-primary">Agregar Diagnostico</a>
@@ -29,8 +29,8 @@
                     <td>{{ $diagnostic->description }}</td>
                     <td>{{ $diagnostic->date->format('d-m-Y') }}</td>
                     <td>
-                        <a href="{{ route('diagnostics.show', $diagnostic) }}" class="btn btn-info btn-sm">Mostrar</a>
-                        <a href="{{ route('diagnostics.edit', $diagnostic) }}" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="{{ route('diagnostics.show', $diagnostic) }}" class="btn btn-primary btn-sm">Mostrar</a>
+                        <a href="{{ route('diagnostics.edit', $diagnostic) }}" class="btn btn-secondary btn-sm">Editar</a>
                         <form action="{{ route('diagnostics.destroy', $diagnostic) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')

@@ -21,7 +21,19 @@
     </div>
     <div class="row">
         <div class="col-12 justify-content-center text-center">
-              <a class="btn btn-primary" href="/patients">Agregar Pacientes</a>
+            <a class="btn btn-primary" href="/patients">Lista de pacientes</a>
+        </div>
+    </div>
+    <div class="row py-5 justify-content-center text-center" >
+        <div class="col-4 border border-rounded" style="background-color: #C4E1F2;">
+            <a class="btn btn-primary mt-3" href="/patients/create">Agregar pacientes</a>
+        </div>
+        <div class="col-4 border border-rounded border-3" style="background-color: #C4E1F2;">
+            <a class="btn btn-primary mt-3" href="/diagnostics">Diagnósticos</a>
+        </div>
+        <div class="col-4 border border-rounded border-3" style="background-color: #C4E1F2;">
+            <a class="btn btn-primary mt-3" href="/records">Historial médico</a>
+            <p style="padding-top:200px;"></p>
         </div>
     </div>
 </div>
