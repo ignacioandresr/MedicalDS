@@ -31,7 +31,7 @@ class Patient extends Model
 
     public function getRouteKeyName()
     {
-        return 'rut';
+        return 'id';
     }
 
     /**
