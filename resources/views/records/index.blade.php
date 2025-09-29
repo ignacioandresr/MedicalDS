@@ -34,8 +34,8 @@
                         @foreach($records as $record)
                             <tr>
                                 <td>{{ $record->id_historial }}</td>
-                                <td>{{ $record->patient->nombre ?? '' }}</td>
-                                <td>{{ $record->diagnostic->descripcion ?? '' }}</td>
+                                <td>{{ $record->patient->rut ?? '' }}</td>
+                                <td>{{ $record->diagnostic->description ?? '' }}</td>
                                 <td>{{ $record->tratamientos }}</td>
                                 <td>{{ \Carbon\Carbon::parse($record->fecha)->format('d-m-Y') }}</td>
                                 <td>
