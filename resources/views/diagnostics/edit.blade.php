@@ -31,6 +31,14 @@
                         <label for="date" class="form-label">Fecha:</label>
                         <input type="date" class="form-control" id="date" name="date" value="{{ \Carbon\Carbon::parse($diagnostic->date)->format('Y-m-d') }}">
                     </div>
+                        <div class="mb-3">
+                            <label for="symptoms" class="form-label">Síntomas (mantener Ctrl para seleccionar varios)</label>
+                            <select name="symptoms[]" id="symptoms" class="form-control" multiple>
+                                @foreach($symptoms as $s)
+                                    <option value="{{ $s->id }}" @if(in_array($s->id, $attached)) selected @endif>{{ $s->name }} @if($s->description) - {{ $s->description }} @endif</option>
+                                @endforeach
+                            </select>
+                        </div>
                     <button type="submit" class="btn btn-primary text-center">Actualizar</button>
                 </form>
             </div>

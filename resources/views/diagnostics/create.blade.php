@@ -20,6 +20,14 @@
                     <label for="date" class="form-label">Fecha</label>
                     <input type="date" class="form-control" id="date_diagnostic" name="date">
                 </div>
+                <div class="mb-3">
+                    <label for="symptoms" class="form-label">Síntomas (mantener Ctrl para seleccionar varios)</label>
+                    <select name="symptoms[]" id="symptoms" class="form-control" multiple>
+                        @foreach($symptoms as $s)
+                            <option value="{{ $s->id }}">{{ $s->name }} @if($s->description) - {{ $s->description }} @endif</option>
+                        @endforeach
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary">Guardar</button>
             </form>
         </div>

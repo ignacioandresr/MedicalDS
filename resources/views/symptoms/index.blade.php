@@ -19,6 +19,7 @@
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Paciente</th>
                 <th>Nombre</th>
                 <th>Descripción</th>
                 <th>Acciones</th>
@@ -28,15 +29,17 @@
             @foreach($symptoms as $symptom)
                 <tr>
                     <td>{{ $symptom->id }}</td>
+                    <td>
+                        @if($symptom->patient)
+                            {{ $symptom->patient->rut }} - {{ $symptom->patient->name }} {{ $symptom->patient->apellido_paterno }}
+                        @else
+                            --
+                        @endif
+                    </td>
                     <td>{{ $symptom->name }}</td>
                     <td>{{ $symptom->description }}</td>
                     <td>
                         <a href="{{ route('symptoms.edit', $symptom) }}" class="btn btn-secondary btn-sm">Editar</a>
-                        <form action="{{ route('symptoms.destroy', $symptom) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
-                        </form>
                     </td>
                 </tr>
             @endforeach

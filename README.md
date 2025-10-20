@@ -54,3 +54,11 @@ Tabla de unión para la relación muchos a muchos entre `Diagnostico` y `Sintoma
 - **Diagnostico genera Historial (1:N):** Un diagnóstico puede generar múltiples entradas en el historial (aunque en este modelo parece ser 1:1 o 1:N dependiendo de la interpretación, se asume que un diagnóstico puede ser parte de varios historiales o un historial puede contener varios diagnósticos).
 - **Usuario crea Diagnostico (1:N):** Un usuario (médico) puede crear múltiples diagnósticos, pero un diagnóstico es creado por un solo usuario.
 - **Diagnostico incluye Sintoma (N:M a través de Diagnostico_Sintoma):** Un diagnóstico puede estar asociado a múltiples síntomas, y un síntoma puede estar presente en múltiples diagnósticos.
+
+## Cómo usar la nueva funcionalidad (rápido)
+
+- Para crear un diagnóstico: Ir a Diagnósticos → Agregar Diagnóstico. En el formulario puedes buscar al paciente por RUT o nombre (autocompletado), ingresar descripción y fecha, y seleccionar uno o varios síntomas desde la lista (mantén Ctrl para seleccionar varios). Al guardar, los síntomas se asociarán al diagnóstico.
+- Para editar un diagnóstico: En la lista de Diagnósticos haz clic en Editar. Verás los síntomas preseleccionados; ajusta la selección y guarda.
+- Para crear/editar síntomas: Ve a Síntomas → Agregar/Editar. Al crear un síntoma puedes asociarlo opcionalmente a un diagnóstico existente.
+
+Si deseas, puedo agregar capturas de pantalla pequeñas o mejorar la UI del selector para dispositivos móviles.

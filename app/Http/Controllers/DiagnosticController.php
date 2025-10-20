@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Diagnostic;
 use App\Models\Patient;
+use App\Models\Symptom;
 use Illuminate\Http\Request as HttpRequest;
 use App\Models\Record;
 
@@ -22,7 +23,8 @@ class DiagnosticController extends Controller
     public function create()
     {
         $patients = Patient::all();
-        return view('diagnostics.create', compact('patients'));
+        $symptoms = Symptom::all();
+        return view('diagnostics.create', compact('patients', 'symptoms'));
     }
 
     public function store(HttpRequest $request)
@@ -43,6 +45,11 @@ class DiagnosticController extends Controller
             'patient_id' => $patient->id,
             'user_id' => auth()->id(),
         ]);
+
+        // sincronizar sintomas si vienen
+        if ($request->has('symptoms')) {
+            $diagnostic->symptoms()->sync(array_filter($request->input('symptoms')));
+        }
 
         // Actualizar el historial médico más reciente del paciente para apuntar a este diagnóstico
         try {
@@ -65,7 +72,9 @@ class DiagnosticController extends Controller
     public function edit(Diagnostic $diagnostic)
     {
         $patients = Patient::all();
-        return view('diagnostics.edit', compact('diagnostic', 'patients'));
+        $symptoms = Symptom::all();
+        $attached = $diagnostic->symptoms()->pluck('symptoms.id')->toArray();
+        return view('diagnostics.edit', compact('diagnostic', 'patients', 'symptoms', 'attached'));
     }
 
     public function update(HttpRequest $request, Diagnostic $diagnostic)
@@ -86,6 +95,13 @@ class DiagnosticController extends Controller
             'patient_id' => $patient->id,
             'user_id' => auth()->id(),
         ]);
+        // sincronizar sintomas
+        if ($request->has('symptoms')) {
+            $diagnostic->symptoms()->sync(array_filter($request->input('symptoms')));
+        } else {
+            // si no se envían sintomas, dejar vacio
+            $diagnostic->symptoms()->sync([]);
+        }
         // Al actualizar el diagnóstico, también podemos propagar el cambio al historial más reciente
         try {
             $latestRecord = Record::where('patient_id', $patient->id)->latest('fecha')->first();

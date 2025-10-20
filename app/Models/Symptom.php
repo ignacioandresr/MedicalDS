@@ -12,10 +12,16 @@ class Symptom extends Model
     protected $fillable = [
         'name',
         'description',
+        'patient_id',
     ];
 
     public function diagnostics()
     {
         return $this->belongsToMany(Diagnostic::class, 'diagnostic_symptom', 'symptom_id', 'diagnostic_id');
+    }
+
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
     }
 }
