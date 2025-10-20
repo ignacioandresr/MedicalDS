@@ -2,10 +2,10 @@
 @use "sass:color";
 
 // Configuration
-@use "functions" as *;
-@use "variables" as *;
-@use "variables-dark" as *;
-@use "maps" as *;
+@import "functions";
+@import "variables";
+@import "variables-dark";
+@import "maps";
 
 @import "mixins/banner";
 @include bsBanner("");

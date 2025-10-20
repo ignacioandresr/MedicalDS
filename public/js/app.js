@@ -44287,9 +44287,12 @@ document.addEventListener('DOMContentLoaded', function () {
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
   \*********************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nSassError: Undefined mixin.\n    ╷\n495 │ @include _assert-ascending($grid-breakpoints, \"$grid-breakpoints\");\n    │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ╵\n  resources\\sass\\vendor\\bootstrap\\_variables.scss 495:1  @use\n  resources\\sass\\vendor\\bootstrap\\bootstrap.scss 6:1     @use\n  C:\\champ\\htdocs\\xampp\\medicalDS\\resources\\sass\\app.scss 3:1                                              root stylesheet\n    at processResult (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\webpack\\lib\\NormalModule.js:926:19)\n    at C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\webpack\\lib\\NormalModule.js:1075:5\n    at C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\loader-runner\\lib\\LoaderRunner.js:400:11\n    at C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\loader-runner\\lib\\LoaderRunner.js:252:18\n    at context.callback (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\loader-runner\\lib\\LoaderRunner.js:124:13)\n    at C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass-loader\\dist\\index.js:73:7\n    at Function.call$2 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:127550:16)\n    at render_closure1.call$2 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:108663:12)\n    at _RootZone.runBinary$3$3 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:39647:18)\n    at _FutureListener.handleError$1 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:38178:21)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:38479:49)\n    at Object._Future__propagateToListeners (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:5172:77)\n    at _Future._completeErrorObject$1 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:38339:9)\n    at _AsyncAwaitCompleter.completeError$2 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:37949:12)\n    at Object._asyncRethrow (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:4935:17)\n    at C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:28511:20\n    at _wrapJsFunctionForAsync_closure.$protected (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:4960:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:37968:12)\n    at _awaitOnObject_closure0.call$2 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:37962:25)\n    at _RootZone.runBinary$3$3 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:39647:18)\n    at _FutureListener.handleError$1 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:38178:21)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:38479:49)\n    at Object._Future__propagateToListeners (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:5172:77)\n    at _Future._completeErrorObject$1 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:38339:9)\n    at _AsyncAwaitCompleter.completeError$2 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:37949:12)\n    at Object._asyncRethrow (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:4935:17)\n    at C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:20598:20\n    at _wrapJsFunctionForAsync_closure.$protected (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:4960:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:37968:12)\n    at _awaitOnObject_closure0.call$2 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:37962:25)\n    at _RootZone.runBinary$3$3 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:39647:18)\n    at _FutureListener.handleError$1 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:38178:21)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:38479:49)\n    at Object._Future__propagateToListeners (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:5172:77)\n    at _Future._completeErrorObject$1 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:38339:9)\n    at _AsyncAwaitCompleter.completeError$2 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:37949:12)\n    at Object._asyncRethrow (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:4935:17)\n    at C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:20646:20\n    at _wrapJsFunctionForAsync_closure.$protected (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:4960:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:37968:12)\n    at _awaitOnObject_closure0.call$2 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:37962:25)\n    at _RootZone.runBinary$3$3 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:39647:18)\n    at _FutureListener.handleError$1 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:38178:21)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:38479:49)\n    at Object._Future__propagateToListeners (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:5172:77)\n    at _Future._completeErrorObject$1 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:38339:9)\n    at _AsyncAwaitCompleter.completeError$2 (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:37949:12)\n    at Object._asyncRethrow (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:4935:17)\n    at C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:86338:24\n    at _wrapJsFunctionForAsync_closure.$protected (C:\\champ\\htdocs\\xampp\\medicalDS\\node_modules\\sass\\sass.dart.js:4960:15)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
 
 /***/ })
 
@@ -44322,7 +44325,42 @@ throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugi
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = __webpack_modules__;
+/******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/chunk loaded */
+/******/ 	(() => {
+/******/ 		var deferred = [];
+/******/ 		__webpack_require__.O = (result, chunkIds, fn, priority) => {
+/******/ 			if(chunkIds) {
+/******/ 				priority = priority || 0;
+/******/ 				for(var i = deferred.length; i > 0 && deferred[i - 1][2] > priority; i--) deferred[i] = deferred[i - 1];
+/******/ 				deferred[i] = [chunkIds, fn, priority];
+/******/ 				return;
+/******/ 			}
+/******/ 			var notFulfilled = Infinity;
+/******/ 			for (var i = 0; i < deferred.length; i++) {
+/******/ 				var [chunkIds, fn, priority] = deferred[i];
+/******/ 				var fulfilled = true;
+/******/ 				for (var j = 0; j < chunkIds.length; j++) {
+/******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
+/******/ 						chunkIds.splice(j--, 1);
+/******/ 					} else {
+/******/ 						fulfilled = false;
+/******/ 						if(priority < notFulfilled) notFulfilled = priority;
+/******/ 					}
+/******/ 				}
+/******/ 				if(fulfilled) {
+/******/ 					deferred.splice(i--, 1)
+/******/ 					var r = fn();
+/******/ 					if (r !== undefined) result = r;
+/******/ 				}
+/******/ 			}
+/******/ 			return result;
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -44372,13 +44410,68 @@ throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugi
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/jsonp chunk loading */
+/******/ 	(() => {
+/******/ 		// no baseURI
+/******/ 		
+/******/ 		// object to store loaded and loading chunks
+/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
+/******/ 		var installedChunks = {
+/******/ 			"/js/app": 0,
+/******/ 			"css/app": 0
+/******/ 		};
+/******/ 		
+/******/ 		// no chunk on demand loading
+/******/ 		
+/******/ 		// no prefetching
+/******/ 		
+/******/ 		// no preloaded
+/******/ 		
+/******/ 		// no HMR
+/******/ 		
+/******/ 		// no HMR manifest
+/******/ 		
+/******/ 		__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
+/******/ 		
+/******/ 		// install a JSONP callback for chunk loading
+/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
+/******/ 			var [chunkIds, moreModules, runtime] = data;
+/******/ 			// add "moreModules" to the modules object,
+/******/ 			// then flag all "chunkIds" as loaded and fire callback
+/******/ 			var moduleId, chunkId, i = 0;
+/******/ 			if(chunkIds.some((id) => (installedChunks[id] !== 0))) {
+/******/ 				for(moduleId in moreModules) {
+/******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
+/******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
+/******/ 					}
+/******/ 				}
+/******/ 				if(runtime) var result = runtime(__webpack_require__);
+/******/ 			}
+/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
+/******/ 			for(;i < chunkIds.length; i++) {
+/******/ 				chunkId = chunkIds[i];
+/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
+/******/ 					installedChunks[chunkId][0]();
+/******/ 				}
+/******/ 				installedChunks[chunkId] = 0;
+/******/ 			}
+/******/ 			return __webpack_require__.O(result);
+/******/ 		}
+/******/ 		
+/******/ 		var chunkLoadingGlobal = self["webpackChunk"] = self["webpackChunk"] || [];
+/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
+/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
+/******/ 	})();
+/******/ 	
 /************************************************************************/
 /******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	__webpack_require__("./resources/js/app.js");
-/******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__("./resources/sass/app.scss");
+/******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
+/******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/sass/app.scss")))
+/******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
 ;
