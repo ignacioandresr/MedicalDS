@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Patient;
+use App\Models\Diagnostic;
+use App\Models\Record;
 use Illuminate\Http\Request;
 
 class PatientController extends Controller
@@ -31,8 +33,28 @@ class PatientController extends Controller
             'gender' => 'required',
             'adress' => 'required',
         ]);
+        $patient = Patient::create($request->all());
+        try {
+            // Crear diagnóstico por defecto y asociarlo al paciente
+            $defaultDiagnostic = Diagnostic::create([
+                'description' => 'Sin Diagnóstico',
+                'date' => now()->toDateString(),
+                'patient_id' => $patient->id,
+                'user_id' => auth()->id(),
+            ]);
 
-        Patient::create($request->all());
+            // Crear historial médico inicial apuntando al diagnóstico por defecto
+            Record::create([
+                'patient_id' => $patient->id,
+                'diagnostic_id' => $defaultDiagnostic->id,
+                'tratamientos' => 'Sin Tratamiento',
+                'fecha' => now()->toDateString(),
+            ]);
+        } catch (\Exception $e) {
+            $patient->delete();
+            return redirect()->route('patients.index')->with('error', 'Error al crear historial médico: ' . $e->getMessage());
+        }
+
         return redirect()->route('patients.index')->with('success', 'Paciente creado con éxito.');
     }
 

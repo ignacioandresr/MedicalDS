@@ -6,14 +6,14 @@
     <div class="container border border-2 rounded p-4" style="background-color: rgba(255, 255, 255, 0.8);">
         <div class="row">
             <div class="col-12">
-                <h6><span class="fw-bold">Paciente RUT:</span> {{ $record->patient->rut }}</h6>
+                    <h6><span class="fw-bold">Paciente RUT:</span> {{ optional($record->patient)->rut ?? '' }}</h6>
                 <h6><span class="fw-bold">Nombre:</span> {{ $record->patient->name ?? '' }}</h6>
                 <h6><span class="fw-bold">Apellido Paterno:</span> {{ $record->patient->apellido_paterno ?? '' }}</h6>
                 <h6><span class="fw-bold">Apellido Materno:</span> {{ $record->patient->apellido_materno ?? '' }}</h6>
                 <h6><span class="fw-bold">Fecha de Nacimiento:</span> {{ $record->patient->birth_date ?? '' }}</h6>
                 <h6><span class="fw-bold">Género:</span> {{ $record->patient->gender ?? '' }}</h6>
                 <h6><span class="fw-bold">Dirección:</span> {{ $record->patient->adress ?? '' }}</h6>
-                <h6><span class="fw-bold">Diagnóstico:</span> {{ $record->diagnostic->description}}</h6>
+                    <h6><span class="fw-bold">Diagnóstico:</span> {{ optional($record->diagnostic)->description ?? 'Sin diagn\u00f3stico' }}</h6>
                 <h6><span class="fw-bold">Tratamientos:</span> {{ $record->tratamientos }}</h6>
                 <h6><span class="fw-bold">Fecha:</span> {{ $record->fecha }}</h6>
             </div>

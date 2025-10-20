@@ -16,7 +16,7 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-auto">
-            <p class="text-center welcome-message"  style="text-shadow: 2px 2px 4px #000000;">Página princial MedicalDS</p>
+            <p class="text-center welcome-message"  style="text-shadow: 2px 2px 4px #000000;">Página principal MedicalDS</p>
         </div>
     </div>
     <div class="row">
@@ -26,7 +26,7 @@
     </div>
     <div class="row py-5 justify-content-center text-center" >
         <div class="col-4 border border-rounded" style="background-color: #C4E1F2;">
-            <a class="btn btn-primary mt-3" href="/patients/create">Agregar pacientes</a>
+            <a class="btn btn-primary mt-3" href="{{ route('symptoms.create') }}">Ingresar Síntomas</a>
         </div>
         <div class="col-4 border border-rounded border-3" style="background-color: #C4E1F2;">
             <a class="btn btn-primary mt-3" href="/diagnostics">Diagnósticos</a>

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid records-index pt-5">
     <div class="container">
-        <h1 class="mb-4 fw-bold text-center">Agregar Historial Médico</h1>
+        <h1 class="mb-4 fw-bold text-center">Historial Médico Adicional</h1>
         <div class="border border-2 rounded p-4" style="background-color: rgba(255, 255, 255, 0.8);">
             @if ($errors->any())
                 <div class="alert alert-danger">

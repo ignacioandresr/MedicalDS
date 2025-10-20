@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid diagnostics-index pt-5">
-    <h1 class="text-center fw-bold mb-4">Editar Diagnóstico</h1>
+    <h1 class="text-center fw-bold mb-4">Ingresar Diagnóstico</h1>
     <div class="container border border-2 rounded p-4" style="background-color: rgba(255, 255, 255, 0.8);">
         <div class="row">
             <div class="col-12">

@@ -14,7 +14,7 @@
                 <h1 class="fw-bold">Historial Médico</h1>
             </div>
             <div class="col-2 text-end">
-                <a href="{{ route('records.create') }}" class="btn btn-primary">Agregar Historial</a>
+                <a href="{{ route('records.create') }}" class="btn btn-primary">Historial Adicional</a>
             </div>
         </div>
         <div class="row">
@@ -41,11 +41,6 @@
                                 <td>
                                     <a href="{{ route('records.show', $record->id_historial) }}" class="btn btn-primary btn-sm">Mostrar</a>
                                     <a href="{{ route('records.edit', $record->id_historial) }}" class="btn btn-secondary btn-sm">Editar</a>
-                                    <form action="{{ route('records.destroy', $record->id_historial) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                    </form>
                                 </td>
                             </tr>
                         @endforeach

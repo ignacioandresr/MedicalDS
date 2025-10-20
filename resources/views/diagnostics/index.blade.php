@@ -6,7 +6,7 @@
             <h1 class="fw-bold">Diagnosticos</h1>
         </div>
         <div class="col text-end">
-            <a href="{{ route('diagnostics.create') }}" class="btn btn-primary">Agregar Diagnostico</a>
+            <a href="{{ route('diagnostics.create') }}" class="btn btn-primary">Diagnostico Adicional</a>
         </div>
     </div>
 
@@ -31,11 +31,13 @@
                     <td>
                         <a href="{{ route('diagnostics.show', $diagnostic) }}" class="btn btn-primary btn-sm">Mostrar</a>
                         <a href="{{ route('diagnostics.edit', $diagnostic) }}" class="btn btn-secondary btn-sm">Editar</a>
+                        @role('admin')
                         <form action="{{ route('diagnostics.destroy', $diagnostic) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                         </form>
+                        @endrole
                     </td>
                 </tr>
             @endforeach

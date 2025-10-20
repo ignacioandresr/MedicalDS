@@ -16,6 +16,20 @@
                 <h6><span class="fw-bold">Fecha:</span> {{ $diagnostic->date }}</h6>
             </div>
         </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <h5 class="fw-bold">Síntomas asociados</h5>
+                @if($diagnostic->symptoms && $diagnostic->symptoms->count() > 0)
+                    <ul>
+                        @foreach($diagnostic->symptoms as $symptom)
+                            <li><strong>{{ $symptom->name }}</strong> - {{ $symptom->description }}</li>
+                        @endforeach
+                    </ul>
+                @else
+                    <p>Sin Sintomas</p>
+                @endif
+            </div>
+        </div>
         <div class="row">
             <div class="col-12 justify-content-center text-center">
                 <a class="btn btn-primary mt-3" href="{{ route('diagnostics.index') }}">Volver a la lista</a>

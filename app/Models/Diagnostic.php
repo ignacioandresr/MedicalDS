@@ -13,6 +13,11 @@
     {
         return $this->belongsTo(Patient::class);
     }
+
+    public function symptoms()
+    {
+        return $this->belongsToMany(Symptom::class, 'diagnostic_symptom', 'diagnostic_id', 'symptom_id');
+    }
     /**
      * Mutator: guarda el RUT sin puntos ni guion en la BD
      */

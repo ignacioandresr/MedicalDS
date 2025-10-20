@@ -45,11 +45,13 @@
                                 <td>
                                     <a href="{{ route('patients.show', $patient) }}" class="btn btn-primary btn-sm">Mostrar</a>
                                     <a href="{{ route('patients.edit', $patient) }}" class="btn btn-secondary btn-sm">Editar</a>
+                                    @role('admin')
                                     <form action="{{ route('patients.destroy', $patient) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                                     </form>
+                                    @endrole
                                 </td>
                             </tr>
                         @endforeach

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid records-index pt-5">
-    <h1 class="text-center fw-bold mb-4">Editar Historial Médico</h1>
+    <h1 class="text-center fw-bold mb-4">Ingresar Historial Médico</h1>
     <div class="container border border-2 rounded p-4" style="background-color: rgba(255, 255, 255, 0.8);">
         <div class="row">
             <div class="col-12">
@@ -194,11 +194,9 @@ document.querySelector('form').addEventListener('submit', function(e) {
 });
 </script>
 @endpush
-                    <div class="mb-3 position-relative">
-                        <label for="searchDiagnostic" class="form-label">Diagnóstico</label>
-                        <input type="text" class="form-control mb-2" id="searchDiagnostic" name="searchDiagnostic" placeholder="Buscar diagnóstico..." autocomplete="off" required value="{{ $record->diagnostic->descripcion ?? '' }}">
-                        <input type="hidden" id="diagnostic_id" name="diagnostic_id" value="{{ $record->diagnostic_id }}">
-                        <ul class="list-group position-absolute w-100" id="autocompleteDiagnosticList" style="z-index:1000; max-height:200px; overflow-y:auto;"></ul>
+                    <div class="mb-3">
+                        <label class="form-label">Diagnóstico</label>
+                        <p class="form-control-plaintext">{{ optional($record->diagnostic)->description ?? 'Sin diagnóstico' }}</p>
                     </div>
                     <div class="mb-3">
                         <label for="tratamientos" class="form-label">Tratamientos</label>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Diagnostic;
 use App\Models\Patient;
 use Illuminate\Http\Request as HttpRequest;
+use App\Models\Record;
 
 class DiagnosticController extends Controller
 {
@@ -36,12 +37,22 @@ class DiagnosticController extends Controller
 
         $patient = Patient::where('rut', $rut)->first();
 
-        Diagnostic::create([
+        $diagnostic = Diagnostic::create([
             'description' => $request->description,
             'date' => $request->date,
             'patient_id' => $patient->id,
             'user_id' => auth()->id(),
         ]);
+
+        // Actualizar el historial médico más reciente del paciente para apuntar a este diagnóstico
+        try {
+            $latestRecord = Record::where('patient_id', $patient->id)->latest('fecha')->first();
+            if ($latestRecord) {
+                $latestRecord->update(['diagnostic_id' => $diagnostic->id]);
+            }
+        } catch (\Exception $e) {
+            // No detener el flujo si falla la actualización del historial, pero podríamos registrar el error
+        }
 
         return redirect()->route('diagnostics.index')->with('success', 'Diagnostic created successfully.');
     }
@@ -75,6 +86,15 @@ class DiagnosticController extends Controller
             'patient_id' => $patient->id,
             'user_id' => auth()->id(),
         ]);
+        // Al actualizar el diagnóstico, también podemos propagar el cambio al historial más reciente
+        try {
+            $latestRecord = Record::where('patient_id', $patient->id)->latest('fecha')->first();
+            if ($latestRecord && $latestRecord->diagnostic_id === $diagnostic->id) {
+                $latestRecord->update(['diagnostic_id' => $diagnostic->id]);
+            }
+        } catch (\Exception $e) {
+            // ignore
+        }
         return redirect()->route('diagnostics.index')->with('success', 'Diagnostic updated successfully.');
     }
 

@@ -5,11 +5,13 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\DiagnosticController;
 
 use App\Http\Controllers\RecordController;
+use App\Http\Controllers\SymptomController;
 
 Route::resource('patients', PatientController::class);
 Route::resource('diagnostics', DiagnosticController::class);
 
 Route::resource('records', RecordController::class);
+Route::resource('symptoms', SymptomController::class);
 
 
 

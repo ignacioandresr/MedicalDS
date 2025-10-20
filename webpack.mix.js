@@ -12,4 +12,10 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css', {
+        // Pass options to sass-loader -> sass to silence dependency deprecation warnings
+        // quietDeps hides deprecation warnings from third-party dependencies (e.g., vendor bootstrap SCSS)
+        sassOptions: {
+            quietDeps: true
+        }
+    });
