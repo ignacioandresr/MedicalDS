@@ -40,12 +40,17 @@
                                     <a class="" href="{{ url('/home') }}" aria-label="Inicio"><i class="bi bi-house-door-fill btn home-btn"></i></a>
                                 </li>
                                 <li  class="nav-item dropdown mx-lg-2 my-1">
-                                    <a id="navbarDropdown" class="login-btn nav-link dropdown-toggle d-flex align-items-center p-0 text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="bi bi-person-circle me-1"></i>
-                                        <span>{{ Auth::user()->name }}</span>
-                                        @if(method_exists(Auth::user(), 'hasRole') && Auth::user()->hasRole('admin'))
-                                            <i style="font-size: small" class="bi bi-star-fill text-warning ms-2" title="Admin"></i>
+                                    <a id="navbarDropdown" class="login-btn nav-link dropdown-toggle d-flex align-items-center text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        @if(method_exists(Auth::user(), 'hasRole') && Auth::user()->hasRole('user'))
+                                            <div class="pe-2">
+                                                <i class="bi bi-person-circle"></i>
+                                            </div>
                                         @endif
+                                        <div class="">{{ Auth::user()->name }}
+                                            @if(method_exists(Auth::user(), 'hasRole') && Auth::user()->hasRole('admin'))
+                                                <i style="font-size: small" class="bi bi-star-fill text-warning ms-2" title="Admin"></i>
+                                            @endif
+                                        </div>
                                     </a>
 
                                     <div style="background-color: #57B7F2 !important" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
