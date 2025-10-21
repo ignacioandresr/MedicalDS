@@ -1,6 +1,7 @@
 @use 'variables' as *;
 
 @use 'vendor/bootstrap/bootstrap' as bootstrap;
+@use 'visitors' as *;
 
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
@@ -56,12 +57,29 @@ body {
 .bi {
     font-size: 1.25rem;
 }
-.login-btn,
-.btn {
-    -webkit-tap-highlight-color: transparent;
+.btn-martian {
+    color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    text-decoration: none;
 }
-.btn:not(:focus-visible),
-.login-btn:not(:focus-visible) {
-    box-shadow: none !important;
-    outline: none !important;
+.btn-martian:hover {
+    color: #BAF241 !important;
+}
+.btn-alien{
+    background-color: #BAF241 !important;
+    color: #fff !important;
+}
+.btn-alien:hover{
+    background-color: #BAF241 !important;
+}
+.btn-alien {
+    transition: background-color .15s ease, color .15s ease, filter .15s ease;
+}
+
+.btn-alien:hover,
+.btn-alien:focus,
+.btn-alien:active {
+    filter: brightness(0.92);
+    color: #1154D9 !important;
 }

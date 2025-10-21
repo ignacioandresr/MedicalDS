@@ -8,19 +8,17 @@
     <script src="{{ mix('js/app.js') }}" defer></script>
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     @stack('styles')
-    
 </head>
-<body>
+<body class="{{ request()->routeIs('visitor.register') || request()->routeIs('visitor.login.form') ? 'route-visitor' : '' }}">
     <div id="app">
-        <nav class="navbar navbar-expand-lg py-3">
+    <nav class="navbar navbar-expand-lg py-3">
             <div class="container d-flex align-items-center">
                 @auth
                     <a class="navbar-brand fw-bold custom home-btn" href="/home" style="font-size: 1.5rem;">MedicalDS</a>
                 @else
-                    <a class="navbar-brand fw-bold custom home-btn" href="#" onclick="location.reload(); return false;" style="font-size: 1.5rem;">MedicalDS</a>
+                    <a class="navbar-brand fw-bold custom home-btn" href="{{ url('/') }}" style="font-size: 1.5rem;">MedicalDS</a>
                 @endauth
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -60,11 +58,11 @@
                                     </div>
                                 </li>                                
                             @else
-                                <li class="nav-item mx-lg-1 my-1">
+                                <li class="nav-item my-1">
                                     <a class="btn fw-bold login-btn" href="{{ route('login') }}">Iniciar Sesión</a>
                                 </li>
                                 @if (Route::has('register'))
-                                    <li class="nav-item mx-lg-1 my-1">
+                                    <li class="nav-item my-1">
                                         <a class="btn fw-bold login-btn" href="{{ route('register') }}">Registrarse</a>
                                     </li>
                                 @endif
@@ -77,9 +75,21 @@
                 </div>
             </div>
         </nav>
+    <div class="container-fluid py-2 hero-section">
+            <div class="row">
+                <div class="col-12 text-center d-flex flex-column flex-md-row justify-content-center gap-2 px-3">
+                    <a class="btn-martian fw-bold login-btn px-3" href="{{ route('visitor.register') }}">Зарегистрируйте марсианина</a>
+                    <a class="btn-martian fw-bold login-btn" href="{{ route('visitor.login.form') }}">Войти как марсианин</a>
+                </div>
+            </div>
+        </div>
 
-        <main class="container py-4">
-            @yield('content')
+        <main>
+            <div class="page-content">
+                <div class="container py-4">
+                    @yield('content')
+                </div>
+            </div>
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

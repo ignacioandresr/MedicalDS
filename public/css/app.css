@@ -11980,6 +11980,76 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.navbar-brand {
+  font-size: 1.5rem;
+}
+
+.btn-martian {
+  color: #1154D9;
+  transition: color 0.15s ease-in-out;
+  text-decoration: none;
+}
+
+.btn-martian:hover,
+.btn-martian:focus {
+  color: #1154D9;
+  text-decoration: none;
+}
+
+body.route-visitor .btn-martian {
+  color: #fff !important;
+}
+
+body.route-visitor:hover .btn-martian:hover {
+  color: #1154D9 !important;
+}
+
+.hero-section {
+  background: linear-gradient(90deg, rgb(5, 84, 242) 0%, rgb(87, 183, 242) 100%);
+  background-size: cover;
+  background-position: center;
+}
+
+body.route-visitor .navbar {
+  background: linear-gradient(90deg, rgb(186, 242, 65) 50%, rgb(196, 225, 242) 100%);
+}
+
+body.route-visitor .hero-section {
+  background: linear-gradient(90deg, rgb(186, 242, 65) 50%, rgb(196, 225, 242) 100%);
+}
+
+.page-content {
+  width: 100%;
+  min-height: calc(100vh - 72px);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+}
+
+body.route-visitor .page-content {
+  background-image: url("/imagenes/alien.jpg");
+}
+
+.navbar .dropdown-menu {
+  background-color: #57B7F2 !important;
+}
+
+.navbar .dropdown-menu .dropdown-item.login-btn {
+  background-color: #57B7F2 !important;
+  width: 20%;
+}
+
+.card.card-visitor {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.card.card-visitor .card-header.card-visitor-header {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #000;
+}
+
 body {
   font-family: "Nunito", sans-serif;
   margin: 0;
@@ -12042,13 +12112,33 @@ body {
   font-size: 1.25rem;
 }
 
-.login-btn,
-.btn {
-  -webkit-tap-highlight-color: transparent;
+.btn-martian {
+  color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+  text-decoration: none;
 }
 
-.btn:not(:focus-visible),
-.login-btn:not(:focus-visible) {
-  box-shadow: none !important;
-  outline: none !important;
+.btn-martian:hover {
+  color: #BAF241 !important;
+}
+
+.btn-alien {
+  background-color: #BAF241 !important;
+  color: #fff !important;
+}
+
+.btn-alien:hover {
+  background-color: #BAF241 !important;
+}
+
+.btn-alien {
+  transition: background-color 0.15s ease, color 0.15s ease, filter 0.15s ease;
+}
+
+.btn-alien:hover,
+.btn-alien:focus,
+.btn-alien:active {
+  filter: brightness(0.92);
+  color: #1154D9 !important;
 }

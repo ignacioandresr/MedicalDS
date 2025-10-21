@@ -28,4 +28,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+use App\Http\Controllers\VisitorController;
+Route::get('/visitor/register', [VisitorController::class, 'create'])->name('visitor.register');
+Route::get('/visitor/login', function() { return view('visitors.login'); })->name('visitor.login.form');
+Route::post('/visitor', [VisitorController::class, 'store'])->name('visitor.store');
+Route::post('/visitor/login', [VisitorController::class, 'login'])->name('visitor.login');
+
 
