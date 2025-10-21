@@ -18,4 +18,5 @@ mix.js('resources/js/app.js', 'public/js')
         sassOptions: {
             quietDeps: true
         }
-    });
+    })
+    .sass('resources/sass/home_ru.scss', 'public/css');

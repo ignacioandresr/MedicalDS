@@ -1,0 +1,23 @@
+body {
+    background-image: url('/imagenes/alien_inicio.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+.btn-martian {
+  color: #fff;
+  background-color: #BAF241;
+  transition: color .15s ease-in-out;
+  text-decoration: none;
+}
+.btn-martian:hover,
+.btn-martian:hover,
+.btn-martian:focus {
+  color: #1154D9 !important;
+  background-color: #BAF241;
+  text-decoration: none;
+}
+.welcome-message{
+    color: #BAF241 !important;
+}

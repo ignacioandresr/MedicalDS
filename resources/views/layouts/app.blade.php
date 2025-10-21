@@ -13,21 +13,27 @@
 </head>
 <body class="{{ request()->routeIs('visitor.register') || request()->routeIs('visitor.login.form') ? 'route-visitor' : '' }}">
     <div id="app">
-    <nav class="navbar navbar-expand-lg py-3">
+    <nav class="navbar navbar-expand-lg py-3" style="@if(request()->routeIs('visitor.home.ru'))background: linear-gradient(90deg,rgba(186, 242, 65, 1) 50%, rgba(196, 225, 242, 1) 100%);@endif">
             <div class="container d-flex align-items-center">
-                @auth
+                @if(request()->routeIs('visitor.home.ru'))
+                    <a class="navbar-brand fw-bold custom home-btn" href="{{ route('visitor.home.ru') }}" style="font-size: 1.5rem;">МедицинскийDS</a>
+                @elseif(auth()->check())
                     <a class="navbar-brand fw-bold custom home-btn" href="/home" style="font-size: 1.5rem;">MedicalDS</a>
                 @else
                     <a class="navbar-brand fw-bold custom home-btn" href="{{ url('/') }}" style="font-size: 1.5rem;">MedicalDS</a>
-                @endauth
+                @endif
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                @auth
+                @if(request()->routeIs('visitor.home.ru'))
+                    <div class="position-absolute start-50 translate-middle-x d-none d-lg-block">
+                        <a class="" href="{{ route('visitor.home.ru') }}" aria-label="Inicio"><i class="bi bi-house-door-fill btn home-btn"></i></a>
+                    </div>
+                @elseif(auth()->check())
                     <div class="position-absolute start-50 translate-middle-x d-none d-lg-block">
                         <a class="" href="{{ url('/home') }}" aria-label="Inicio"><i class="bi bi-house-door-fill btn home-btn"></i></a>
                     </div>
-                @endauth
+                @endif
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
@@ -75,14 +81,16 @@
                 </div>
             </div>
         </nav>
+    @guest
     <div class="container-fluid py-2 hero-section">
-            <div class="row">
-                <div class="col-12 text-center d-flex flex-column flex-md-row justify-content-center gap-2 px-3">
-                    <a class="btn-martian fw-bold login-btn px-3" href="{{ route('visitor.register') }}">Зарегистрируйте марсианина</a>
-                    <a class="btn-martian fw-bold login-btn" href="{{ route('visitor.login.form') }}">Войти как марсианин</a>
-                </div>
+        <div class="row">
+            <div class="col-12 text-center d-flex flex-column flex-md-row justify-content-center gap-2 px-3">
+                <a class="btn-alien btn fw-bold px-3 visitor-link" href="{{ route('visitor.register') }}">Зарегистрируйте марсианина</a>
+                <a class="btn-alien btn fw-bold visitor-link" href="{{ route('visitor.login.form') }}">Войти как марсианин</a>
             </div>
         </div>
+    </div>
+    @endguest
 
         <main>
             <div class="page-content">

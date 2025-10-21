@@ -67,11 +67,11 @@ body {
     color: #BAF241 !important;
 }
 .btn-alien{
-    background-color: #BAF241 !important;
     color: #fff !important;
+    text-decoration: none;
 }
 .btn-alien:hover{
-    background-color: #BAF241 !important;
+    color: #BAF241 !important;
 }
 .btn-alien {
     transition: background-color .15s ease, color .15s ease, filter .15s ease;
@@ -81,5 +81,5 @@ body {
 .btn-alien:focus,
 .btn-alien:active {
     filter: brightness(0.92);
-    color: #1154D9 !important;
+    color: #BAF241 !important;
 }

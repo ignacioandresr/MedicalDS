@@ -11980,24 +11980,38 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+body.route-visitor .visitor-link {
+  color: #fff !important;
+  transition: color 0.2s;
+}
+
+body.route-visitor .visitor-link:hover,
+body.route-visitor .visitor-link:focus {
+  color: #1154D9 !important;
+}
+
 .navbar-brand {
   font-size: 1.5rem;
 }
 
 .btn-martian {
   color: #1154D9;
+  background-color: #BAF241;
   transition: color 0.15s ease-in-out;
   text-decoration: none;
 }
 
 .btn-martian:hover,
+.btn-martian:hover,
 .btn-martian:focus {
   color: #1154D9;
+  background-color: #BAF241;
   text-decoration: none;
 }
 
 body.route-visitor .btn-martian {
   color: #fff !important;
+  background-color: #BAF241 !important;
 }
 
 body.route-visitor:hover .btn-martian:hover {
@@ -12022,10 +12036,8 @@ body.route-visitor .hero-section {
   width: 100%;
   min-height: calc(100vh - 72px);
   background-size: cover;
-  background-position: center;
   background-repeat: no-repeat;
   display: flex;
-  align-items: center;
 }
 
 body.route-visitor .page-content {
@@ -12124,12 +12136,12 @@ body {
 }
 
 .btn-alien {
-  background-color: #BAF241 !important;
   color: #fff !important;
+  text-decoration: none;
 }
 
 .btn-alien:hover {
-  background-color: #BAF241 !important;
+  color: #BAF241 !important;
 }
 
 .btn-alien {
@@ -12140,5 +12152,5 @@ body {
 .btn-alien:focus,
 .btn-alien:active {
   filter: brightness(0.92);
-  color: #1154D9 !important;
+  color: #BAF241 !important;
 }

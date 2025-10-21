@@ -39,7 +39,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-alien">
+                                <button type="submit" class="btn fw-bold btn-martian">
                                     Войти как марсианин
                                 </button>
                             </div>

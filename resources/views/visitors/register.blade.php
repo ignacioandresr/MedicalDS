@@ -60,17 +60,9 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4 d-flex flex-column flex-md-row gap-2">
-                                <button type="submit" class="btn btn-alien">
+                                <button type="submit" class="fw-bold btn btn-martian">
                                     Зарегистрировать марсианина
                                 </button>
-                                <form method="POST" action="{{ route('visitor.login') }}">
-                                    @csrf
-                                    <input type="hidden" name="name" value="Гость">
-                                    <input type="hidden" name="email" value="guest@example.com">
-                                    <input type="hidden" name="password" value="password12345">
-                                    <input type="hidden" name="password_confirmation" value="password12345">
-                                    <button type="submit" class="btn btn-secondary">Войти как марсианин</button>
-                                </form>
                             </div>
                         </div>
                     </form>

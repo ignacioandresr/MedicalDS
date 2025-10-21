@@ -35,8 +35,8 @@ class VisitorController extends Controller
         // Puedes autenticar al visitante si lo deseas:
         auth()->login($user);
 
-    $request->session()->flash('status', 'Регистрация прошла успешно!');
-        return redirect()->route('visitor.register');
+        $request->session()->flash('status', 'Регистрация прошла успешно!');
+        return redirect()->route('visitor.home.ru');
     }
 
     /**
@@ -44,23 +44,22 @@ class VisitorController extends Controller
      */
     public function login(Request $request)
     {
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
+        $credentials = $request->validate([
             'email' => 'required|email|max:255',
+            'password' => 'required|string',
         ]);
 
-        // Store visitor info in session (simple, non-auth)
-        $request->session()->put('visitor', [
-            'name' => $data['name'],
-            'email' => $data['email'],
-        ]);
+        // Intentar autenticar al usuario
+        if (auth()->attempt($credentials)) {
+            $request->session()->regenerate();
+            $request->session()->put('locale', 'ru');
+            $request->session()->flash('status', '¡Has iniciado sesión como marciano!');
+            return redirect()->route('visitor.home.ru');
+        }
 
-        // Keep Russian locale like create()
-        $request->session()->put('locale', 'ru');
-
-        $request->session()->flash('status', 'Вы вошли как посетитель.');
-
-        // Redirect back to the register page (or home) — mirror create behavior
-        return redirect()->route('visitor.register');
+        // Si falla, volver al login con error
+        return back()->withErrors([
+            'email' => 'Las credenciales no son válidas.',
+        ])->withInput();
     }
 }
