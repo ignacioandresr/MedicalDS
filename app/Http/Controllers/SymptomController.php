@@ -37,9 +37,36 @@ class SymptomController extends Controller
             'patient_id' => $data['patient_id'],
         ]);
 
-        if (!empty($data['diagnostic_id'])) {
-            $diag = Diagnostic::find($data['diagnostic_id']);
+        // Si no se envía diagnostic_id, crear un diagnóstico por este síntoma
+        if (empty($data['diagnostic_id'])) {
+            $diag = Diagnostic::create([
+                'description' => $data['description'] ?? ('Síntoma: ' . ($data['name'] ?? 'Sin nombre')),
+                'date' => now()->toDateString(),
+                'patient_id' => $data['patient_id'],
+                'user_id' => auth()->id(),
+            ]);
+
+            // Actualizar o crear historial médico asociado al paciente para apuntar a este diagnóstico
+            $record = \App\Models\Record::where('patient_id', $data['patient_id'])->latest('created_at')->first();
+            if ($record) {
+                $record->diagnostic_id = $diag->id;
+                $record->save();
+            } else {
+                \App\Models\Record::create([
+                    'patient_id' => $data['patient_id'],
+                    'diagnostic_id' => $diag->id,
+                    'tratamientos' => 'Sin Tratamiento',
+                    'fecha' => now()->toDateString(),
+                ]);
+            }
+
+            // asociar el síntoma al diagnóstico
             $diag->symptoms()->attach($symptom->id);
+        } else {
+            $diag = Diagnostic::find($data['diagnostic_id']);
+            if ($diag) {
+                $diag->symptoms()->attach($symptom->id);
+            }
         }
 
         return redirect()->route('symptoms.index')->with('success', 'Síntoma creado correctamente.');

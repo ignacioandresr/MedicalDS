@@ -52,7 +52,7 @@
                     <ul class="list-unstyled text-start">
                         @foreach($latestDiagnostics as $d)
                             <li class="py-1">
-                                <strong>{{ $d->name ?? $d->descripcion ?? ($d->title ?? 'Diagnóstico') }}</strong>
+                                <strong>{{ $d->description ?? ($d->descripcion ?? ($d->name ?? 'Diagnóstico')) }}</strong>
                                 <br>
                                 <small class="text-muted">{{ optional($d->created_at)->format('d/m/Y H:i') }}</small>
                             </li>
@@ -71,7 +71,7 @@
                     <ul class="list-unstyled text-start">
                         @foreach($latestRecords as $r)
                             <li class="py-1">
-                                <strong>{{ $r->title ?? $r->descripcion ?? ($r->note ?? 'Registro') }}</strong>
+                                <strong>{{ $r->tratamientos ?? ($r->descripcion ?? ($r->title ?? 'Registro')) }}</strong>
                                 <br>
                                 <small class="text-muted">{{ optional($r->created_at)->format('d/m/Y H:i') }}</small>
                             </li>

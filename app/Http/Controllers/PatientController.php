@@ -35,7 +35,6 @@ class PatientController extends Controller
         ]);
         $patient = Patient::create($request->all());
         try {
-            // Crear diagnóstico por defecto y asociarlo al paciente
             $defaultDiagnostic = Diagnostic::create([
                 'description' => 'Sin Diagnóstico',
                 'date' => now()->toDateString(),
@@ -43,7 +42,6 @@ class PatientController extends Controller
                 'user_id' => auth()->id(),
             ]);
 
-            // Crear historial médico inicial apuntando al diagnóstico por defecto
             Record::create([
                 'patient_id' => $patient->id,
                 'diagnostic_id' => $defaultDiagnostic->id,

@@ -30,7 +30,7 @@ class RecordController extends Controller
     {
         $request->validate([
             'patient_id' => 'required|exists:patients,id',
-            // diagnostic_id no se valida/actualiza desde el Historial: se gestiona en Diagnósticos
+            'diagnostic_id' => 'required|exists:diagnostics,id',
             'tratamientos' => 'required',
             'fecha' => 'required|date',
         ]);
