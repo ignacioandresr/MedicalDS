@@ -37,7 +37,6 @@ class SymptomController extends Controller
             'patient_id' => $data['patient_id'],
         ]);
 
-        // Si no se envía diagnostic_id, crear un diagnóstico por este síntoma
         if (empty($data['diagnostic_id'])) {
             $diag = Diagnostic::create([
                 'description' => $data['description'] ?? ('Síntoma: ' . ($data['name'] ?? 'Sin nombre')),
@@ -46,7 +45,6 @@ class SymptomController extends Controller
                 'user_id' => auth()->id(),
             ]);
 
-            // Actualizar o crear historial médico asociado al paciente para apuntar a este diagnóstico
             $record = \App\Models\Record::where('patient_id', $data['patient_id'])->latest('created_at')->first();
             if ($record) {
                 $record->diagnostic_id = $diag->id;
@@ -60,7 +58,6 @@ class SymptomController extends Controller
                 ]);
             }
 
-            // asociar el síntoma al diagnóstico
             $diag->symptoms()->attach($symptom->id);
         } else {
             $diag = Diagnostic::find($data['diagnostic_id']);
@@ -76,9 +73,14 @@ class SymptomController extends Controller
     {
         $diagnostics = Diagnostic::with('patient')->get();
         $patients = Patient::all();
-        // get diagnostics currently attached to this symptom (ids)
         $attached = $symptom->diagnostics()->pluck('diagnostics.id')->toArray();
         return view('symptoms.edit', compact('symptom', 'diagnostics', 'patients', 'attached'));
+    }
+
+    public function show(Symptom $symptom)
+    {
+        $symptom->load('patient', 'diagnostics');
+        return view('symptoms.show', compact('symptom'));
     }
 
     public function update(Request $request, Symptom $symptom)
@@ -95,10 +97,8 @@ class SymptomController extends Controller
             'patient_id' => $data['patient_id'],
         ]);
 
-        // opcional: sincronizar asociacion a diagnostico (si se envía diagnostic_id)
         $diagId = $request->input('diagnostic_id');
         if ($diagId) {
-            // asegurarse que el diagnóstico existe
             $symptom->diagnostics()->sync([$diagId]);
         }
 

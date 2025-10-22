@@ -39,6 +39,7 @@
                     <td>{{ $symptom->name }}</td>
                     <td>{{ $symptom->description }}</td>
                     <td>
+                        <a href="{{ route('symptoms.show', $symptom) }}" class="btn btn-info btn-sm">Mostrar</a>
                         <a href="{{ route('symptoms.edit', $symptom) }}" class="btn btn-secondary btn-sm">Editar</a>
                     </td>
                 </tr>

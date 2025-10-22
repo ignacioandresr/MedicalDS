@@ -13,9 +13,9 @@
 </head>
 <body class="{{ request()->routeIs('visitor.register') || request()->routeIs('visitor.login.form') ? 'route-visitor' : '' }}">
     <div id="app">
-    <nav class="navbar navbar-expand-lg py-3" style="@if(request()->routeIs('visitor.home.ru'))background: linear-gradient(90deg,rgba(186, 242, 65, 1) 50%, rgba(196, 225, 242, 1) 100%);@endif">
+    <nav class="navbar navbar-expand-lg py-3" style="@if(request()->routeIs('visitor.home.ru') || session()->get('locale') === 'ru')background: linear-gradient(90deg,rgba(186, 242, 65, 1) 50%, rgba(196, 225, 242, 1) 100%);@endif">
             <div class="container d-flex align-items-center">
-                @if(request()->routeIs('visitor.home.ru'))
+                @if(request()->routeIs('visitor.home.ru') || session()->get('locale') === 'ru')
                     <a class="navbar-brand fw-bold custom home-btn" href="{{ route('visitor.home.ru') }}" style="font-size: 1.5rem;">МедицинскийDS</a>
                 @elseif(auth()->check())
                     <a class="navbar-brand fw-bold custom home-btn" href="/home" style="font-size: 1.5rem;">MedicalDS</a>
@@ -25,7 +25,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                @if(request()->routeIs('visitor.home.ru'))
+                @if(request()->routeIs('visitor.home.ru') || session()->get('locale') === 'ru')
                     <div class="position-absolute start-50 translate-middle-x d-none d-lg-block">
                         <a class="" href="{{ route('visitor.home.ru') }}" aria-label="Inicio"><i class="bi bi-house-door-fill btn home-btn"></i></a>
                     </div>
@@ -40,29 +40,46 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
                         @if (Route::has('login'))
                             @auth
-                                <li class="nav-item mx-lg-1 my-1 d-lg-none">
-                                    <a class="" href="{{ url('/home') }}" aria-label="Inicio"><i class="bi bi-house-door-fill btn home-btn"></i></a>
-                                </li>
-                                <li  class="nav-item dropdown mx-lg-2 my-1">
-                                    <a id="navbarDropdown" class="login-btn nav-link dropdown-toggle d-flex align-items-center text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        @if(method_exists(Auth::user(), 'hasRole') && Auth::user()->hasRole('user'))
-                                            <div class="pe-2">
-                                                <i class="bi bi-person-circle"></i>
-                                            </div>
-                                        @endif
-                                        <div class="">{{ Auth::user()->name }}
-                                            @if(method_exists(Auth::user(), 'hasRole') && Auth::user()->hasRole('admin'))
-                                                <i style="font-size: small" class="bi bi-star-fill text-warning ms-2" title="Admin"></i>
-                                            @endif
-                                        </div>
-                                    </a>
-
-                                    <div style="background-color: #57B7F2 !important" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a style="background-color: #57B7F2 !important; width: 20%;" class="dropdown-item login-btn" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            {{ __('Cerrar sesión') }}
+                                @if(session()->get('locale') === 'ru')
+                                    {{-- Minimal dropdown for marciano visitor: show name and logout only --}}
+                                    <li class="nav-item dropdown mx-lg-2 my-1">
+                                        <a id="navbarDropdown" class="login-btn nav-link dropdown-toggle d-flex align-items-center text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <div class="">{{ Auth::user()->name }}</div>
                                         </a>
-                                    </div>
-                                </li>                                
+
+                                        <div style="background-color: #57B7F2 !important" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                            <a style="background-color: #57B7F2 !important; width: 20%;" class="dropdown-item login-btn" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                {{ __('Cerrar sesión') }}
+                                            </a>
+                                        </div>
+                                    </li>
+                                @else
+                                    <li class="nav-item mx-lg-1 my-1 d-lg-none">
+                                        <a class="" href="{{ url('/home') }}" aria-label="Inicio"><i class="bi bi-house-door-fill btn home-btn"></i></a>
+                                    </li>
+                                    <li  class="nav-item dropdown mx-lg-2 my-1">
+                                        <a id="navbarDropdown" class="login-btn nav-link dropdown-toggle d-flex align-items-center text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            @if(method_exists(Auth::user(), 'hasRole') && Auth::user()->hasRole('user'))
+                                                <div class="pe-2">
+                                                    <i class="bi bi-person-circle"></i>
+                                                </div>
+                                            @endif
+                                            <div class="">{{ Auth::user()->name }}
+                                                @if(method_exists(Auth::user(), 'hasRole') && Auth::user()->hasRole('admin'))
+                                                    <i style="font-size: small" class="bi bi-star-fill text-warning ms-2" title="Admin"></i>
+                                                @endif
+                                            </div>
+                                        </a>
+
+                                        <div style="background-color: #57B7F2 !important" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item login-btn" href="{{ route('profile.edit') }}">Editar</a>
+                                            <div class="dropdown-divider" style="border-color: rgba(0,0,0,0.1);"></div>
+                                            <a style="background-color: #57B7F2 !important; width: 20%;" class="dropdown-item login-btn" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                {{ __('Cerrar sesión') }}
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
                             @else
                                 <li class="nav-item my-1">
                                     <a class="btn fw-bold login-btn" href="{{ route('login') }}">Iniciar Sesión</a>

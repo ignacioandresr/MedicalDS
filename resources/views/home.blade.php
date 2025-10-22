@@ -9,6 +9,11 @@
         background-repeat: no-repeat;
         height: 100vh;
     }
+    /* Clase para fondos semitransparentes */
+    .semi-transparent {
+        background-color: rgba(196, 225, 242, 0.8); /* mismo tono que #C4E1F2 con 80% opacidad */
+        backdrop-filter: blur(4px); /* suaviza lo que se ve detrás (opcional) */
+    }
 </style>
 @endpush
 
@@ -25,7 +30,7 @@
         </div>
     </div>
     <div class="row py-5 justify-content-center text-center" >
-        <div class="col-4 border border-rounded" style="background-color: #C4E1F2;">
+        <div class="col-3 border border-rounded semi-transparent">
             <a class="btn btn-primary mt-3" href="{{ route('symptoms.index') }}">Síntomas</a>
             <div class="p-3">
                 <h5>Últimos 3 síntomas</h5>
@@ -33,9 +38,11 @@
                     <ul class="list-unstyled text-start">
                         @foreach($latestSymptoms as $s)
                             <li class="py-1">
-                                <strong>{{ $s->name ?? $s->descripcion ?? ($s->title ?? 'Síntoma') }}</strong>
-                                <br>
-                                <small class="text-muted">{{ optional($s->created_at)->format('d/m/Y H:i') }}</small>
+                                <a href="{{ route('symptoms.show', $s) }}" class="text-decoration-none text-body">
+                                    <strong>{{ $s->name ?? $s->descripcion ?? ($s->title ?? 'Síntoma') }}</strong>
+                                    <br>
+                                    <small class="text-muted">{{ optional($s->created_at)->format('d/m/Y H:i') }}</small>
+                                </a>
                             </li>
                         @endforeach
                     </ul>
@@ -44,7 +51,7 @@
                 @endif
             </div>
         </div>
-        <div class="col-4 border border-rounded border-3" style="background-color: #C4E1F2;">
+        <div class="col-3 border border-rounded border-3 semi-transparent">
             <a class="btn btn-primary mt-3" href="/diagnostics">Diagnósticos</a>
             <div class="p-3">
                 <h5>Últimos 3 diagnósticos</h5>
@@ -52,9 +59,11 @@
                     <ul class="list-unstyled text-start">
                         @foreach($latestDiagnostics as $d)
                             <li class="py-1">
-                                <strong>{{ $d->description ?? ($d->descripcion ?? ($d->name ?? 'Diagnóstico')) }}</strong>
-                                <br>
-                                <small class="text-muted">{{ optional($d->created_at)->format('d/m/Y H:i') }}</small>
+                                <a href="{{ route('diagnostics.show', $d) }}" class="text-decoration-none text-body">
+                                    <strong>{{ $d->description ?? ($d->descripcion ?? ($d->name ?? 'Diagnóstico')) }}</strong>
+                                    <br>
+                                    <small class="text-muted">{{ optional($d->created_at)->format('d/m/Y H:i') }}</small>
+                                </a>
                             </li>
                         @endforeach
                     </ul>
@@ -63,7 +72,7 @@
                 @endif
             </div>
         </div>
-        <div class="col-4 border border-rounded border-3" style="background-color: #C4E1F2;">
+        <div class="col-3 border border-rounded border-3 semi-transparent">
             <a class="btn btn-primary mt-3" href="/records">Historial Médico</a>
             <div class="p-3">
                 <h5>Últimos 3 historiales</h5>
@@ -71,14 +80,37 @@
                     <ul class="list-unstyled text-start">
                         @foreach($latestRecords as $r)
                             <li class="py-1">
-                                <strong>{{ $r->tratamientos ?? ($r->descripcion ?? ($r->title ?? 'Registro')) }}</strong>
-                                <br>
-                                <small class="text-muted">{{ optional($r->created_at)->format('d/m/Y H:i') }}</small>
+                                <a href="{{ route('records.show', $r) }}" class="text-decoration-none text-body">
+                                    <strong>{{ $r->tratamientos ?? ($r->descripcion ?? ($r->title ?? 'Registro')) }}</strong>
+                                    <br>
+                                    <small class="text-muted">{{ optional($r->created_at)->format('d/m/Y H:i') }}</small>
+                                </a>
                             </li>
                         @endforeach
                     </ul>
                 @else
                     <p class="text-muted">No hay registros</p>
+                @endif
+            </div>
+        </div>
+        <div class="col-3 border border-rounded border-3 semi-transparent">
+            <a class="btn btn-primary mt-3" href="{{ route('appointments.index') }}">Citas</a>
+            <div class="p-3">
+                <h5>Últimas 3 citas</h5>
+                @if(isset($latestAppointments) && $latestAppointments->count())
+                    <ul class="list-unstyled text-start">
+                        @foreach($latestAppointments as $a)
+                            <li class="py-1">
+                                <a href="{{ route('appointments.show', $a) }}" class="text-decoration-none text-body">
+                                    <strong>{{ $a->patient ? ($a->patient->name) : 'Paciente' }} - {{ $a->date }} {{ $a->time ?? '' }}</strong>
+                                    <br>
+                                    <small class="text-muted">{{ optional($a->created_at)->format('d/m/Y H:i') }}</small>
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @else
+                    <p class="text-muted">No hay citas</p>
                 @endif
             </div>
         </div>
