@@ -12062,6 +12062,28 @@ body.route-visitor .page-content {
   color: #000;
 }
 
+/* Styles for training view links moved from training_ru.blade.php */
+.training-list .list-group-item a {
+  display: block;
+  color: #1154D9;
+  text-decoration: none;
+}
+
+.training-list .list-group-item a:hover {
+  color: #0738a6;
+  text-decoration: underline;
+}
+
+.training-fallback a {
+  display: inline-block;
+  margin: 0.25rem 0;
+  padding: 0.45rem 0.75rem;
+  border-radius: 0.75rem;
+  background: rgba(11, 84, 217, 0.08);
+  color: #1154D9;
+  text-decoration: none;
+}
+
 body {
   font-family: "Nunito", sans-serif;
   margin: 0;

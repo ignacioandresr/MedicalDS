@@ -70,3 +70,23 @@ body.route-visitor .page-content{
   background-color: rgba(255, 255, 255, 0.5);
   color: #000;
 }
+
+/* Styles for training view links moved from training_ru.blade.php */
+.training-list .list-group-item a {
+  display: block;
+  color: #1154D9;
+  text-decoration: none;
+}
+.training-list .list-group-item a:hover {
+  color: #0738a6;
+  text-decoration: underline;
+}
+.training-fallback a {
+  display: inline-block;
+  margin: .25rem 0;
+  padding: .45rem .75rem;
+  border-radius: .75rem;
+  background: rgba(11,84,217,0.08);
+  color: #1154D9;
+  text-decoration: none;
+}

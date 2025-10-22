@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             AssignRoleSeeder::class,
             PatientsSeeder::class,
+            ClinicalCaseSeeder::class,
         ]);
     }
 }

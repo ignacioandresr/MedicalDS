@@ -39,6 +39,9 @@ Route::middleware('auth')->group(function () {
 });
 
 use App\Http\Controllers\VisitorController;
+use App\Http\Controllers\VisitorTrainingController;
+use App\Http\Controllers\ClinicalCaseController;
+
 Route::get('/visitor/register', [VisitorController::class, 'create'])->name('visitor.register');
 Route::get('/visitor/login', function() { return view('visitors.login'); })->name('visitor.login.form');
 Route::post('/visitor', [VisitorController::class, 'store'])->name('visitor.store');
@@ -50,9 +53,16 @@ Route::get('/visitor/home_ru', function() {
     return view('visitors.home_ru');
 })->name('visitor.home.ru');
 
-// Simple training page for Russian visitor (martian)
-Route::get('/visitor/training_ru', function() {
-    return view('visitors.training_ru');
-})->name('visitor.training.ru');
+// Training for Russian visitors now uses controller to show clinical cases in Russian
+Route::get('/visitor/training_ru', [VisitorTrainingController::class, 'trainingRu'])->name('visitor.training.ru');
+
+// Visitor can view a single case and attempt to solve it (Russian)
+Route::get('/visitor/cases/{clinical_case}', [VisitorTrainingController::class, 'show'])->name('visitor.case.show');
+Route::post('/visitor/cases/{clinical_case}/attempt', [VisitorTrainingController::class, 'attempt'])->name('visitor.case.attempt');
+
+// Admin CRUD for clinical cases
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('clinical_cases', ClinicalCaseController::class);
+});
 
 

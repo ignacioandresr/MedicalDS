@@ -9,28 +9,33 @@
         background-repeat: no-repeat;
         height: 100vh;
     }
-    /* Clase para fondos semitransparentes */
     .semi-transparent {
-        background-color: rgba(196, 225, 242, 0.8); /* mismo tono que #C4E1F2 con 80% opacidad */
-        backdrop-filter: blur(4px); /* suaviza lo que se ve detrás (opcional) */
+        background-color: rgba(196, 225, 242, 0.8);
+        backdrop-filter: blur(4px);
     }
 </style>
 @endpush
 
 @section('content')
-<div class="container mt-5">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-auto">
             <p class="text-center welcome-message"  style="text-shadow: 2px 2px 4px #000000;">Página principal MedicalDS</p>
         </div>
     </div>
     <div class="row">
-        <div class="col-12 justify-content-center text-center">
+        <div class="col-6 justify-content-center text-center">
             <a class="btn btn-primary" href="/patients">Lista de pacientes</a>
+        </div>
+        <div class="col-6 justify-content-center text-center">
+        @role('admin')
+            <a class="btn btn-primary" href="{{ route('clinical_cases.index') }}">Casos Clínicos</a>
+        @endrole
+            
         </div>
     </div>
     <div class="row py-5 justify-content-center text-center" >
-        <div class="col-3 border border-rounded semi-transparent">
+        <div class="col-6 border border-rounded semi-transparent mb-3">
             <a class="btn btn-primary mt-3" href="{{ route('symptoms.index') }}">Síntomas</a>
             <div class="p-3">
                 <h5>Últimos 3 síntomas</h5>
@@ -51,7 +56,7 @@
                 @endif
             </div>
         </div>
-        <div class="col-3 border border-rounded border-3 semi-transparent">
+        <div class="col-6 border border-rounded border-3 semi-transparent mb-3">
             <a class="btn btn-primary mt-3" href="/diagnostics">Diagnósticos</a>
             <div class="p-3">
                 <h5>Últimos 3 diagnósticos</h5>
@@ -72,7 +77,7 @@
                 @endif
             </div>
         </div>
-        <div class="col-3 border border-rounded border-3 semi-transparent">
+        <div class="col-6 border border-rounded border-3 semi-transparent">
             <a class="btn btn-primary mt-3" href="/records">Historial Médico</a>
             <div class="p-3">
                 <h5>Últimos 3 historiales</h5>
@@ -93,7 +98,7 @@
                 @endif
             </div>
         </div>
-        <div class="col-3 border border-rounded border-3 semi-transparent">
+        <div class="col-6 border border-rounded border-3 semi-transparent">
             <a class="btn btn-primary mt-3" href="{{ route('appointments.index') }}">Citas</a>
             <div class="p-3">
                 <h5>Últimas 3 citas</h5>

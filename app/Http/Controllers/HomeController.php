@@ -7,6 +7,7 @@ use App\Models\Symptom;
 use App\Models\Diagnostic;
 use App\Models\Record;
 use App\Models\Appointment;
+use App\Models\ClinicalCase;
 
 class HomeController extends Controller
 {
@@ -29,9 +30,11 @@ class HomeController extends Controller
     {
         $latestSymptoms = Symptom::orderBy('created_at', 'desc')->take(3)->get();
         $latestDiagnostics = Diagnostic::orderBy('created_at', 'desc')->take(3)->get();
-    $latestRecords = Record::orderBy('created_at', 'desc')->take(3)->get();
-    $latestAppointments = Appointment::orderBy('date', 'desc')->take(3)->get();
+        $latestRecords = Record::orderBy('created_at', 'desc')->take(3)->get();
+        $latestAppointments = Appointment::orderBy('date', 'desc')->take(3)->get();
 
-    return view('home', compact('latestSymptoms', 'latestDiagnostics', 'latestRecords', 'latestAppointments'));
+        $latestClinicalCases = ClinicalCase::orderBy('created_at', 'desc')->take(3)->get();
+
+        return view('home', compact('latestSymptoms', 'latestDiagnostics', 'latestRecords', 'latestAppointments', 'latestClinicalCases'));
     }
 }
