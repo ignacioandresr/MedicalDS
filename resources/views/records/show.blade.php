@@ -14,7 +14,28 @@
                 <h6><span class="fw-bold">Género:</span> {{ $record->patient->gender ?? '' }}</h6>
                 <h6><span class="fw-bold">Dirección:</span> {{ $record->patient->adress ?? '' }}</h6>
                     <h6><span class="fw-bold">Diagnóstico:</span> {{ optional($record->diagnostic)->description ?? 'Sin diagn\u00f3stico' }}</h6>
-                <h6><span class="fw-bold">Tratamientos:</span> {{ $record->tratamientos }}</h6>
+                <h6><span class="fw-bold">Enfermedades:</span>
+                    @if($record->enfermedades && $record->enfermedades->count())
+                        {{ $record->enfermedades->pluck('name')->join(', ') }}
+                    @else
+                        -
+                    @endif
+                </h6>
+                <h6><span class="fw-bold">Alergias:</span>
+                    @if($record->alergias && $record->alergias->count())
+                        {{ $record->alergias->pluck('name')->join(', ') }}
+                    @else
+                        -
+                    @endif
+                </h6>
+                <h6><span class="fw-bold">Cirugías:</span>
+                    @if($record->cirugias && $record->cirugias->count())
+                        {{ $record->cirugias->pluck('name')->join(', ') }}
+                    @else
+                        -
+                    @endif
+                </h6>
+                <h6><span class="fw-bold">Observaciones:</span> {{ $record->antecedentes_salud }}</h6>
                 <h6><span class="fw-bold">Fecha:</span> {{ $record->fecha }}</h6>
             </div>
         </div>

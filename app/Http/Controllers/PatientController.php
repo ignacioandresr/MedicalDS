@@ -45,7 +45,7 @@ class PatientController extends Controller
             Record::create([
                 'patient_id' => $patient->id,
                 'diagnostic_id' => $defaultDiagnostic->id,
-                'tratamientos' => 'Sin Tratamiento',
+                'antecedentes_salud' => 'Sin antecedentes',
                 'fecha' => now()->toDateString(),
             ]);
         } catch (\Exception $e) {

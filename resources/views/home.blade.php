@@ -81,7 +81,7 @@
                         @foreach($latestRecords as $r)
                             <li class="py-1">
                                 <a href="{{ route('records.show', $r) }}" class="text-decoration-none text-body">
-                                    <strong>{{ $r->tratamientos ?? ($r->descripcion ?? ($r->title ?? 'Registro')) }}</strong>
+                                    <strong>{{ $r->antecedentes_salud ?? ($r->descripcion ?? ($r->title ?? 'Registro')) }}</strong>
                                     <br>
                                     <small class="text-muted">{{ optional($r->created_at)->format('d/m/Y H:i') }}</small>
                                 </a>

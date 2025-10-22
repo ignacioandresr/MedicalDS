@@ -12,7 +12,7 @@
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
 
-            <div class="card card-visitor" style="background-color: rgba(255, 255, 255, 0.8);">
+            <div class="card"></div>
                 <div class="card-body">
                     <table class="table">
                         <thead>

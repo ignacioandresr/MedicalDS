@@ -33,6 +33,13 @@
 
                     <div class="d-flex justify-content-end gap-2">
                         <a href="{{ route('symptoms.edit', $symptom) }}" class="btn btn-secondary">Editar</a>
+                        @auth
+                        <form action="{{ route('symptoms.destroy', $symptom) }}" method="POST" style="display:inline-block" onsubmit="return confirm('¿Eliminar síntoma? Esta acción no se puede deshacer.');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                        @endauth
                         <a href="{{ route('symptoms.index') }}" class="btn btn-outline-primary">Volver</a>
                     </div>
                 </div>

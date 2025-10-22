@@ -208,12 +208,35 @@ if (!window.MDS.recordsAutocompleteInitialized) {
 </script>
 @endpush
                     <div class="mb-3">
-                        <label class="form-label">Diagnóstico</label>
-                        <p class="form-control-plaintext">{{ optional($record->diagnostic)->description ?? 'Sin diagnóstico' }}</p>
+                        <label for="enfermedades" class="form-label">Enfermedades</label>
+                        <select name="enfermedades[]" id="enfermedades" class="form-control" multiple>
+                            @foreach($enfermedades as $e)
+                                <option value="{{ $e->id }}" {{ in_array($e->id, $record->enfermedades->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $e->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
+
                     <div class="mb-3">
-                        <label for="tratamientos" class="form-label">Tratamientos</label>
-                        <textarea class="form-control" id="tratamientos" name="tratamientos" rows="3" required>{{ $record->tratamientos }}</textarea>
+                        <label for="alergias" class="form-label">Alergias</label>
+                        <select name="alergias[]" id="alergias" class="form-control" multiple>
+                            @foreach($alergias as $a)
+                                <option value="{{ $a->id }}" {{ in_array($a->id, $record->alergias->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $a->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cirugias" class="form-label">Cirugías</label>
+                        <select name="cirugias[]" id="cirugias" class="form-control" multiple>
+                            @foreach($cirugias as $c)
+                                <option value="{{ $c->id }}" {{ in_array($c->id, $record->cirugias->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $c->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="antecedentes_salud" class="form-label">Observaciones</label>
+                        <textarea class="form-control" id="antecedentes_salud" name="antecedentes_salud" rows="3">{{ old('antecedentes_salud', $record->antecedentes_salud ?? '') }}</textarea>
                     </div>
                     <div class="mb-3">
                         <label for="fecha" class="form-label">Fecha</label>

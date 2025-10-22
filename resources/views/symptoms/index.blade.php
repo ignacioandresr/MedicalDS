@@ -41,6 +41,13 @@
                     <td>
                         <a href="{{ route('symptoms.show', $symptom) }}" class="btn btn-info btn-sm">Mostrar</a>
                         <a href="{{ route('symptoms.edit', $symptom) }}" class="btn btn-secondary btn-sm">Editar</a>
+                        @auth
+                        <form action="{{ route('symptoms.destroy', $symptom) }}" method="POST" style="display:inline-block" onsubmit="return confirm('¿Eliminar síntoma? Esta acción no se puede deshacer.');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                        @endauth
                     </td>
                 </tr>
             @endforeach

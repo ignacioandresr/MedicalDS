@@ -223,8 +223,35 @@ if (!window.MDS.recordsAutocompleteInitialized) {
                     <ul class="list-group position-absolute w-100" id="autocompleteDiagnosticList" style="z-index:1000; max-height:200px; overflow-y:auto;"></ul>
                 </div>
                 <div class="mb-3">
-                    <label for="tratamientos" class="form-label">Tratamientos</label>
-                    <textarea class="form-control" id="tratamientos" name="tratamientos" rows="3" required></textarea>
+                    <label for="enfermedades" class="form-label">Enfermedades</label>
+                    <select name="enfermedades[]" id="enfermedades" class="form-control" multiple>
+                        @foreach($enfermedades as $e)
+                            <option value="{{ $e->id }}">{{ $e->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="alergias" class="form-label">Alergias</label>
+                    <select name="alergias[]" id="alergias" class="form-control" multiple>
+                        @foreach($alergias as $a)
+                            <option value="{{ $a->id }}">{{ $a->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="cirugias" class="form-label">Cirugías</label>
+                    <select name="cirugias[]" id="cirugias" class="form-control" multiple>
+                        @foreach($cirugias as $c)
+                            <option value="{{ $c->id }}">{{ $c->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="antecedentes_salud" class="form-label">Observaciones</label>
+                    <textarea class="form-control" id="antecedentes_salud" name="antecedentes_salud" rows="3">{{ old('antecedentes_salud') }}</textarea>
                 </div>
                 <div class="mb-3">
                     <label for="fecha" class="form-label">Fecha</label>

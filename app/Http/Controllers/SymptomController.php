@@ -53,7 +53,7 @@ class SymptomController extends Controller
                 \App\Models\Record::create([
                     'patient_id' => $data['patient_id'],
                     'diagnostic_id' => $diag->id,
-                    'tratamientos' => 'Sin Tratamiento',
+                    'antecedentes_salud' => 'Sin observaciones',
                     'fecha' => now()->toDateString(),
                 ]);
             }
