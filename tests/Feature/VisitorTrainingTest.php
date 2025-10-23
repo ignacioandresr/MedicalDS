@@ -7,6 +7,7 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\ClinicalCase;
 use Spatie\Permission\Models\Role;
+use App\Http\Middleware\EnsureVisitorAuthenticated;
 
 class VisitorTrainingTest extends TestCase
 {
@@ -26,11 +27,14 @@ class VisitorTrainingTest extends TestCase
             'title_es' => 'Caso admin ES',
             'title' => 'Caso admin ES',
             'title_ru' => null,
-            'language' => null,
+            'language' => 'es',
             'created_by' => $admin->id,
         ]);
 
-        $response = $this->get(route('visitor.training.ru'));
+    // disable visitor auth middleware for this test
+    $this->withoutMiddleware(EnsureVisitorAuthenticated::class);
+
+    $response = $this->get(route('visitor.training.ru'));
 
         $response->assertStatus(200);
         $response->assertSee('Caso admin ES');
