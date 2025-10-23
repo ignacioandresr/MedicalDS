@@ -10,10 +10,8 @@ class PermissionSeeder extends Seeder
 {
     public function run()
     {
-        // Create permission for deleting symptoms
         Permission::firstOrCreate(['name' => 'delete symptoms']);
 
-        // Optionally assign to admin role if exists
         $admin = Role::where('name', 'admin')->first();
         if ($admin) {
             $admin->givePermissionTo('delete symptoms');

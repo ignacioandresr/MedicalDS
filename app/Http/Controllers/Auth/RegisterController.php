@@ -71,8 +71,21 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        // Asignar el rol "user" al nuevo usuario
-        $user->assignRole('user');
+        // Si en sesión se permite crear admin, asignar rol admin y limpiar flag
+        try {
+            if (session()->pull('allow_admin_create', false)) {
+                if (method_exists($user, 'assignRole')) {
+                    $user->assignRole('admin');
+                }
+            } else {
+                // Asignar el rol "user" al nuevo usuario
+                if (method_exists($user, 'assignRole')) {
+                    $user->assignRole('user');
+                }
+            }
+        } catch (\Throwable $e) {
+            // Ignorar errores de roles si no está instalado
+        }
 
         return $user;
     }

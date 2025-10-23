@@ -11,7 +11,9 @@
                                         @if(isset($cases) && $cases->count())
                                             <div class="list-group training-list">
                                                 @foreach($cases as $case)
-                                                    <a href="{{ route('visitor.case.show', $case) }}" class="list-group-item list-group-item-action visitor-link">{{ $case->title_ru ?: $case->title_es ?: $case->title }}</a>
+                                                    <a href="{{ route('visitor.case.show', $case) }}" class="list-group-item list-group-item-action">
+                                                        {{ $case->title_ru ?: $case->title_es ?: $case->title }}
+                                                    </a>
                                                 @endforeach
                                             </div>
                                         @else

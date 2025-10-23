@@ -5,10 +5,14 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card" style="background-color: rgba(255, 255, 255, 0.8);">
-                <div class="card-header text-center fw-bold" style="background-color: rgba(255, 255, 255, 0.5); color: #000;">{{ __('Registrar') }}</div>
+                <div class="card-header text-center fw-bold" style="background-color: rgba(255, 255, 255, 0.5); color: #000;">Registrar administrador</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    @if(session('status'))
+                        <div class="alert alert-success">{{ session('status') }}</div>
+                    @endif
+
+                    <form method="POST" action="{{ route('register.admin') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -62,24 +66,13 @@
                         </div>
 
                         <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4 d-flex gap-2">
+                            <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Registrar') }}
-                                </button>
-
-                                <a href="{{ route('admin.gate.form') }}" class="btn btn-outline-secondary">
                                     {{ __('Registrar administrador') }}
-                                </a>
+                                </button>
+                                <a href="{{ route('admin.gate.form') }}" class="btn btn-secondary">Volver</a>
                             </div>
                         </div>
-
-                        @if(session('allow_admin_create'))
-                            <div class="row mt-3">
-                                <div class="col-md-8 offset-md-4">
-                                    <div class="alert alert-info">Estás autorizado para crear un administrador. Al registrarlo se le asignará el rol <strong>admin</strong>.</div>
-                                </div>
-                            </div>
-                        @endif
                     </form>
                 </div>
             </div>

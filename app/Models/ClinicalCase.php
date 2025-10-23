@@ -32,4 +32,9 @@ class ClinicalCase extends Model
         'steps_ru',
         'solution_ru',
     ];
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 }

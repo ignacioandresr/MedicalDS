@@ -11,37 +11,48 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     @stack('styles')
 </head>
-<body class="{{ request()->routeIs('visitor.register') || request()->routeIs('visitor.login.form') ? 'route-visitor' : '' }}">
+<body class="{{ request()->routeIs('visitor.*') ? 'route-visitor' : '' }}">
     <div id="app">
-    <nav class="navbar navbar-expand-lg py-3" style="@if(request()->routeIs('visitor.home.ru') || session()->get('locale') === 'ru')background: linear-gradient(90deg,rgba(186, 242, 65, 1) 50%, rgba(196, 225, 242, 1) 100%);@endif">
+    <nav class="navbar navbar-expand-lg py-3" style="@if(request()->routeIs('visitor.*'))background: linear-gradient(90deg,rgba(186, 242, 65, 1) 50%, rgba(196, 225, 242, 1) 100%);@endif">
             <div class="container d-flex align-items-center">
-                @if(request()->routeIs('visitor.home.ru') || session()->get('locale') === 'ru')
+                @if(session()->get('visitor_authenticated') && session()->get('locale') === 'ru')
                     <a class="navbar-brand fw-bold custom home-btn" href="{{ route('visitor.home.ru') }}" style="font-size: 1.5rem;">МедицинскийDS</a>
                 @elseif(auth()->check())
-                    <a class="navbar-brand fw-bold custom home-btn" href="/home" style="font-size: 1.5rem;">MedicalDS</a>
+                    {{-- When logged in, brand goes to the authenticated home --}}
+                    <a class="navbar-brand fw-bold custom home-btn" href="{{ url('/home') }}" style="font-size: 1.5rem;">MedicalDS</a>
                 @else
-                    <a class="navbar-brand fw-bold custom home-btn" href="{{ url('/') }}" style="font-size: 1.5rem;">MedicalDS</a>
+                    <a class="navbar-brand fw-bold custom home-btn" href="/" style="font-size: 1.5rem;">MedicalDS</a>
                 @endif
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                @if(request()->routeIs('visitor.home.ru') || session()->get('locale') === 'ru')
-                    <div class="position-absolute start-50 translate-middle-x d-none d-lg-block">
-                        <a class="" href="{{ route('visitor.home.ru') }}" aria-label="Inicio"><i class="bi bi-house-door-fill btn home-btn"></i></a>
+                @unless(auth()->check())
+                    <div class="position-absolute start-50 translate-middle-x d-none d-lg-flex align-items-center">
+                        <div class="form-check form-switch mb-0">
+                            <input class="form-check-input" type="checkbox" id="martian-interface-switch" {{ (request()->routeIs('visitor.*') || session()->get('visitor_authenticated')) ? 'checked' : '' }}>
+                            <label class="form-check-label ms-2 fw-bold" style="color: #fff !important;" for="martian-interface-switch">Интерфейс марсианина</label>
+                        </div>
                     </div>
-                @elseif(auth()->check())
-                    <div class="position-absolute start-50 translate-middle-x d-none d-lg-block">
-                        <a class="" href="{{ url('/home') }}" aria-label="Inicio"><i class="bi bi-house-door-fill btn home-btn"></i></a>
-                    </div>
-                @endif
+                @endunless
+
+                <div class="position-absolute start-50 translate-middle-x d-none d-lg-flex align-items-center">
+                    @if(request()->routeIs('visitor.*') || session()->get('visitor_authenticated'))
+                        <a class="btn fw-bold home-nav-btn" href="{{ route('visitor.home.ru') }}" aria-label="Casa">
+                            <i class="bi bi-house-door-fill btn home-btn"></i>
+                        </a>
+                    @elseif(auth()->check())
+                        <a class="btn fw-bold home-nav-btn" href="{{ url('/home') }}" aria-label="Casa">
+                            <i class="bi bi-house-door-fill btn home-btn"></i>
+                        </a>
+                    @endif
+                </div>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
                         @if (Route::has('login'))
                             @auth
-                                @if(session()->get('locale') === 'ru')
-                                    {{-- Minimal dropdown for marciano visitor: show name and logout only --}}
+                                @if(request()->routeIs('visitor.*'))
                                     <li class="nav-item dropdown mx-lg-2 my-1">
                                         <a id="navbarDropdown" class="login-btn nav-link dropdown-toggle d-flex align-items-center text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <div class="">{{ Auth::user()->name }}</div>
@@ -54,10 +65,8 @@
                                         </div>
                                     </li>
                                 @else
-                                    <li class="nav-item mx-lg-1 my-1 d-lg-none">
-                                        <a class="" href="{{ url('/home') }}" aria-label="Inicio"><i class="bi bi-house-door-fill btn home-btn"></i></a>
-                                    </li>
-                                    <li  class="nav-item dropdown mx-lg-2 my-1">
+                                    <li class="nav-item mx-lg-1 my-1 d-none d-lg-block">
+                                        <li  class="nav-item dropdown mx-lg-2 my-1">
                                         <a id="navbarDropdown" class="login-btn nav-link dropdown-toggle d-flex align-items-center text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             @if(method_exists(Auth::user(), 'hasRole') && Auth::user()->hasRole('user'))
                                                 <div class="pe-2">
@@ -71,13 +80,19 @@
                                             </div>
                                         </a>
 
-                                        <div style="background-color: #57B7F2 !important" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item login-btn" href="{{ route('profile.edit') }}">Editar</a>
-                                            <div class="dropdown-divider" style="border-color: rgba(0,0,0,0.1);"></div>
-                                            <a style="background-color: #57B7F2 !important; width: 20%;" class="dropdown-item login-btn" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                {{ __('Cerrar sesión') }}
-                                            </a>
-                                        </div>
+                                            <div style="background-color: #57B7F2 !important" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item login-btn" href="{{ route('profile.show') }}">Perfil</a>
+                                                <a class="dropdown-item login-btn" href="{{ route('profile.edit') }}">Editar</a>
+                                                @if(method_exists(Auth::user(), 'hasRole') && Auth::user()->hasRole('admin'))
+                                                    <div class="dropdown-divider" style="border-color: rgba(0,0,0,0.1);"></div>
+                                                    <a class="dropdown-item login-btn" href="{{ route('admin.users') }}">Usuarios</a>
+                                                    <a class="dropdown-item login-btn" href="{{ route('roles.assign') }}">Asignar roles</a>
+                                                @endif
+                                                <div class="dropdown-divider" style="border-color: rgba(0,0,0,0.1);"></div>
+                                                <a style="background-color: #57B7F2 !important; width: 20%;" class="dropdown-item login-btn" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                    {{ __('Cerrar sesión') }}
+                                                </a>
+                                            </div>
                                     </li>
                                 @endif
                             @else
@@ -118,6 +133,33 @@
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const switchEl = document.getElementById('martian-interface-switch');
+            if (! switchEl) return;
+
+            switchEl.addEventListener('change', function (e) {
+                if (e.target.checked) {
+                    window.location.href = "{{ route('visitor.welcome.ru') }}";
+                    return;
+                }
+
+                fetch("{{ route('visitor.leave') }}", {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                }).then(function (resp) {
+                    window.location.href = '/';
+                }).catch(function () {
+                    window.location.href = '/';
+                });
+            });
+        });
+    </script>
     @stack('scripts')
 </body>
 </html>

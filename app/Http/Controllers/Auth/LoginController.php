@@ -37,4 +37,29 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    /**
+     * After authentication, prevent visitor-role accounts from using the regular login.
+     * Redirect them to the visitor login form with an error.
+     */
+    protected function authenticated($request, $user)
+    {
+        try {
+            if (method_exists($user, 'hasRole') && $user->hasRole('visitor')) {
+                auth()->logout();
+                return redirect()->route('visitor.login.form')->withErrors([
+                    'email' => 'Debe iniciar sesión desde la entrada de visitantes.',
+                ]);
+            }
+        } catch (\Throwable $e) {
+            // If role check fails, be conservative and log out
+            auth()->logout();
+            return redirect()->route('login')->withErrors([
+                'email' => 'No se pudo verificar el rol de la cuenta.',
+            ]);
+        }
+
+        // Otherwise continue normal flow
+        return null;
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClinicalCase;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class VisitorTrainingController extends Controller
@@ -10,8 +11,16 @@ class VisitorTrainingController extends Controller
     // public page for visitors (martians) to see cases in Russian
     public function trainingRu()
     {
-        $cases = ClinicalCase::where('language', 'ru')
-            ->orWhereNotNull('title_ru')
+        $cases = ClinicalCase::where(function ($q) {
+                $q->where('language', 'ru')
+                  ->orWhereNotNull('title_ru');
+            })
+            // also include cases created by users who have the admin role
+            ->orWhereHas('creator', function ($q) {
+                $q->whereHas('roles', function ($r) {
+                    $r->where('name', 'admin');
+                });
+            })
             ->orderBy('created_at', 'desc')
             ->get();
 
