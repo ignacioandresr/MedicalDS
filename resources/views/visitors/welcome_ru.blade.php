@@ -1,30 +1,7 @@
 @extends('layouts.app')
 
 @push('styles')
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
-        body {
-            background-image: url('/imagenes/alien.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            min-height: 100vh;
-        }
-        .visitor-welcome {
-            display: flex;
-            color: #fff;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
-        }
-        .visitor-welcome .card {
-            background: rgba(0,0,0,0.45);
-            border: none;
-            color: #fff;
-        }
-    </style>
+    <link href="{{ mix('css/home_ru.css') }}" rel="stylesheet">
 @endpush
 
 @section('content')

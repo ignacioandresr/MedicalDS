@@ -1,21 +1,7 @@
 @extends('layouts.app')
 
 @push('styles')
-<style>
-    html, body {
-        height: 100%;
-        margin: 0;
-    }
-
-    body {
-        background-image: url("{{ asset('imagenes/inicio.jpg') }}");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        min-height: 100vh;
-    }
-</style>
+    <link href="{{ mix('css/home.css') }}" rel="stylesheet">
 @endpush
 
 @section('content')

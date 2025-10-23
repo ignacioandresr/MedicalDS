@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@push('styles')
+    <link href="{{ mix('css/home.css') }}" rel="stylesheet">
+@endpush
 @push('styles')
 @endpush
 

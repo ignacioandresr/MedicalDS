@@ -1,62 +1,134 @@
-@startuml
+@startuml a
 !theme plain
 
-entity "Paciente" as Paciente {
-  *id_paciente : INT
+entity "patients" as patients {
+  *id : BIGINT <<PK>>
   --
-  nombre : VARCHAR
-  apellido_paterno : VARCHAR
-  apellido_materno : VARCHAR
-  rut : VARCHAR
-  fecha_nacimiento : DATE
-  telefono : INT
-  direccion : VARCHAR
+  rut : VARCHAR (unique)
+  name : VARCHAR
+  birth_date : DATE
+  gender : VARCHAR
+  adress : VARCHAR
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
 }
 
-entity "Sintoma" as Sintoma {
-  *id_sintoma : INT
+entity "users" as users {
+  *id : BIGINT <<PK>>
   --
-  nombre : VARCHAR
-  descripcion : TEXT
-}
-
-entity "Diagnostico" as Diagnostico {
-  *id_diagnostico : INT
-  --
-  descripcion : TEXT
-  fecha : DATE
-  paciente_id : INT
-  usuario_id : INT
-}
-
-entity "Historial" as Historial {
-  *id_historial : INT
-  --
-  paciente_id : INT
-  diagnostico_id : INT
-  tratamientos : TEXT
-  fecha : DATE
-}
-
-entity "Usuario" as Usuario {
-  *id_usuario : INT
-  --
-  nombre : VARCHAR
+  name : VARCHAR
   email : VARCHAR
   password : VARCHAR
-  rol : ENUM(medico, visitante)
+  remember_token : VARCHAR
+  email_verified_at : TIMESTAMP
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
 }
 
-entity "Diagnostico_Sintoma" as DiagnosticoSintoma {
-  *id_diagnostico : INT
-  *id_sintoma : INT
+entity "diagnostics" as diagnostics {
+  *id : BIGINT <<PK>>
+  --
+  description : VARCHAR
+  date : DATE
+  patient_id : BIGINT <<FK>>
+  user_id : BIGINT <<FK>>
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
 }
 
-Paciente ||--o{ Diagnostico : tiene
-Paciente ||--o{ Historial : posee
-Diagnostico ||--o{ Historial : genera
-Usuario ||--o{ Diagnostico : crea
-Diagnostico ||--o{ DiagnosticoSintoma : incluye
-Sintoma ||--o{ DiagnosticoSintoma : describe
+entity "records" as records {
+  *id_historial : BIGINT <<PK>>
+  --
+  patient_id : BIGINT <<FK>>
+  diagnostic_id : BIGINT <<FK>>
+  tratamientos : TEXT
+  fecha : DATE
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+entity "symptoms" as symptoms {
+  *id : BIGINT <<PK>>
+  --
+  name : VARCHAR
+  description : TEXT
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+entity "diagnostic_symptom" as diagnostic_symptom {
+  *id : BIGINT <<PK>>
+  --
+  diagnostic_id : BIGINT <<FK>>
+  symptom_id : BIGINT <<FK>>
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+entity "enfermedades" as enfermedades {
+  *id : BIGINT <<PK>>
+  --
+  name : VARCHAR
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+entity "enfermedad_record" as enfermedad_record {
+  *id : BIGINT <<PK>>
+  --
+  enfermedad_id : BIGINT <<FK>>
+  record_id : BIGINT <<FK>>
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+entity "alergias" as alergias {
+  *id : BIGINT <<PK>>
+  --
+  name : VARCHAR
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+entity "alergia_record" as alergia_record {
+  *id : BIGINT <<PK>>
+  --
+  alergia_id : BIGINT <<FK>>
+  record_id : BIGINT <<FK>>
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+entity "cirugias" as cirugias {
+  *id : BIGINT <<PK>>
+  --
+  name : VARCHAR
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+entity "cirugia_record" as cirugia_record {
+  *id : BIGINT <<PK>>
+  --
+  cirugia_id : BIGINT <<FK>>
+  record_id : BIGINT <<FK>>
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+patients ||--o{ diagnostics : "1..n"
+patients ||--o{ records : "1..n"
+diagnostics ||--o{ diagnostic_symptom : "1..n"
+symptoms ||--o{ diagnostic_symptom : "1..n"
+diagnostics }o--|| patients : "n..1"
+diagnostics }o--|| users : "n..1"
+records }o--|| patients : "n..1"
+records }o--|| diagnostics : "n..1"
+enfermedades ||--o{ enfermedad_record : "1..n"
+alergias ||--o{ alergia_record : "1..n"
+cirugias ||--o{ cirugia_record : "1..n"
+records ||--o{ enfermedad_record : "1..n"
+records ||--o{ alergia_record : "1..n"
+records ||--o{ cirugia_record : "1..n"
 
 @enduml

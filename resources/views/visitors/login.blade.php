@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@push('styles')
+    <link href="{{ mix('css/home_ru.css') }}" rel="stylesheet">
+@endpush
+
 @section('content')
 <div class="container mt-5">
     <div class="row justify-content-center">
