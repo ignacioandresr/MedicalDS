@@ -44183,6 +44183,7 @@ process.umask = function() { return 0; };
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 __webpack_require__(/*! ./navbar-dropdown */ "./resources/js/navbar-dropdown.js");
+__webpack_require__(/*! ./visitor-switch */ "./resources/js/visitor-switch.js");
 
 /***/ }),
 
@@ -44278,6 +44279,38 @@ document.addEventListener('DOMContentLoaded', function () {
         trigger.setAttribute('aria-expanded', 'false');
       }
     }
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/visitor-switch.js":
+/*!****************************************!*\
+  !*** ./resources/js/visitor-switch.js ***!
+  \****************************************/
+/***/ (() => {
+
+document.addEventListener('DOMContentLoaded', function () {
+  var switchEl = document.getElementById('martian-interface-switch');
+  if (!switchEl) return;
+  switchEl.addEventListener('change', function (e) {
+    if (e.target.checked) {
+      window.location.href = window.__visitorWelcomeUrl || '/visitor/welcome/ru';
+      return;
+    }
+    fetch(window.__visitorLeaveUrl || '/visitor/leave', {
+      method: 'POST',
+      headers: {
+        'X-CSRF-TOKEN': (document.querySelector('meta[name="csrf-token"]') || {}).content || '',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({})
+    }).then(function (resp) {
+      window.location.href = '/';
+    })["catch"](function () {
+      window.location.href = '/';
+    });
   });
 });
 
