@@ -2,12 +2,18 @@
 
 @push('styles')
 <style>
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+
     body {
         background-image: url("{{ asset('imagenes/inicio.jpg') }}");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        height: 100vh;
+        background-attachment: fixed;
+        min-height: 100vh;
     }
 </style>
 @endpush

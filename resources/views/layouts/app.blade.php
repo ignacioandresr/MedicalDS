@@ -10,10 +10,19 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     @stack('styles')
+    <style>
+        /* Reserve space for fixed navbar so page content is not hidden */
+        .page-content { padding-top: calc(56px + 1rem); }
+        @media (min-width: 992px) {
+            .page-content { padding-top: calc(64px + 1rem); }
+        }
+        /* When guest hero-section exists below navbar, give it extra top margin */
+        .hero-section { margin-top: calc(56px + 0.5rem); }
+    </style>
 </head>
 <body class="{{ request()->routeIs('visitor.*') ? 'route-visitor' : '' }}">
     <div id="app">
-    <nav class="navbar navbar-expand-lg py-3" style="@if(request()->routeIs('visitor.*'))background: linear-gradient(90deg,rgba(186, 242, 65, 1) 50%, rgba(196, 225, 242, 1) 100%);@endif">
+    <nav class="navbar navbar-expand-lg py-3 fixed-top" style="@if(request()->routeIs('visitor.*'))background: linear-gradient(90deg,rgba(186, 242, 65, 1) 50%, rgba(196, 225, 242, 1) 100%);@endif">
             <div class="container d-flex align-items-center">
                 @if(session()->get('visitor_authenticated') && session()->get('locale') === 'ru')
                     <a class="navbar-brand fw-bold custom home-btn" href="{{ route('visitor.home.ru') }}" style="font-size: 1.5rem;">МедицинскийDS</a>
@@ -36,15 +45,18 @@
                 @endunless
 
                 <div class="position-absolute start-50 translate-middle-x d-none d-lg-flex align-items-center">
-                    @if(request()->routeIs('visitor.*') || session()->get('visitor_authenticated'))
-                        <a class="btn fw-bold home-nav-btn" href="{{ route('visitor.home.ru') }}" aria-label="Casa">
-                            <i class="bi bi-house-door-fill btn home-btn"></i>
-                        </a>
-                    @elseif(auth()->check())
-                        <a class="btn fw-bold home-nav-btn" href="{{ url('/home') }}" aria-label="Casa">
-                            <i class="bi bi-house-door-fill btn home-btn"></i>
-                        </a>
-                    @endif
+                    {{-- Hide the home icon on the visitor welcome page --}}
+                    @unless(request()->routeIs('visitor.welcome.ru') || request()->routeIs('visitor.register') || request()->routeIs('visitor.login.form'))
+                        @if(request()->routeIs('visitor.*') || session()->get('visitor_authenticated'))
+                            <a class="btn fw-bold home-nav-btn" href="{{ route('visitor.home.ru') }}" aria-label="Casa">
+                                <i class="bi bi-house-door-fill btn home-btn"></i>
+                            </a>
+                        @elseif(auth()->check())
+                            <a class="btn fw-bold home-nav-btn" href="{{ url('/home') }}" aria-label="Casa">
+                                <i class="bi bi-house-door-fill btn home-btn"></i>
+                            </a>
+                        @endif
+                    @endunless
                 </div>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -134,31 +146,9 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const switchEl = document.getElementById('martian-interface-switch');
-            if (! switchEl) return;
-
-            switchEl.addEventListener('change', function (e) {
-                if (e.target.checked) {
-                    window.location.href = "{{ route('visitor.welcome.ru') }}";
-                    return;
-                }
-
-                fetch("{{ route('visitor.leave') }}", {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({})
-                }).then(function (resp) {
-                    window.location.href = '/';
-                }).catch(function () {
-                    window.location.href = '/';
-                });
-            });
-        });
+        // Expose dynamic visitor routes to compiled JS. Keep this minimal — logic lives in resources/js/visitor-switch.js
+        window.__visitorLeaveUrl = "{{ route('visitor.leave') }}";
+        window.__visitorWelcomeUrl = "{{ route('visitor.welcome.ru') }}";
     </script>
     @stack('scripts')
 </body>

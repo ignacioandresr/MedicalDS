@@ -14,6 +14,14 @@ class BlockMartianMedicalAccess
     public function handle(Request $request, Closure $next)
     {
         if ($request->session()->get('locale') === 'ru') {
+            // Allow admins to access medical routes even if the session locale is 'ru'
+            try {
+                if (auth()->check() && method_exists(auth()->user(), 'hasRole') && auth()->user()->hasRole('admin')) {
+                    return $next($request);
+                }
+            } catch (\Throwable $e) {
+                // If role check fails, fall through to block access as before.
+            }
             // If request is AJAX/JSON, return 403 JSON
             if ($request->wantsJson() || $request->ajax()) {
                 return response()->json(['message' => 'Access restricted for visitor.'], 403);

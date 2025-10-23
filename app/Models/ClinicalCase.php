@@ -16,17 +16,14 @@ class ClinicalCase extends Model
         'language',
         'solution',
         'created_by',
-        // Spanish
         'title_es',
         'description_es',
         'steps_es',
         'solution_es',
-        // options
         'options',
         'options_es',
         'options_ru',
         'correct_index',
-        // Russian
         'title_ru',
         'description_ru',
         'steps_ru',

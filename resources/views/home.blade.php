@@ -2,12 +2,19 @@
 
 @push('styles')
 <style>
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+
     body {
         background-image: url("{{ asset('imagenes/principio.jpg') }}");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        height: 100vh;
+        background-attachment: fixed;
+        min-height: 100vh; /* ensures background fills the viewport */
+        background-color: #c4e1f2; /* soft fallback while image loads */
     }
     .semi-transparent {
         background-color: rgba(196, 225, 242, 0.8);

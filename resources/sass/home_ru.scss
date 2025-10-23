@@ -1,9 +1,15 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 body {
-    background-image: url('/imagenes/alien_inicio.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100vh;
+  background-image: url('/imagenes/alien.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 .btn-martian {
   color: #fff;

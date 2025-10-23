@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             CommonVisitorSeeder::class,
             AssignRoleSeeder::class,
             PatientsSeeder::class,
+            DiagnosticsSeeder::class,
+            RecordsSeeder::class,
             ClinicalCaseSeeder::class,
         ]);
     }

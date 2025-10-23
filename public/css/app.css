@@ -11981,7 +11981,7 @@ textarea.form-control-lg {
   }
 }
 body.route-visitor .visitor-link {
-  color: #fff !important;
+  color: #fff;
   transition: color 0.2s;
 }
 
@@ -12040,10 +12040,6 @@ body.route-visitor .hero-section {
   display: flex;
 }
 
-body.route-visitor .page-content {
-  background-image: url("/imagenes/alien.jpg");
-}
-
 .navbar .dropdown-menu {
   background-color: #57B7F2 !important;
 }
@@ -12062,10 +12058,10 @@ body.route-visitor .page-content {
   color: #000;
 }
 
-/* Styles for training view links moved from training_ru.blade.php */
 .training-list .list-group-item a {
   display: block;
-  color: #1154D9;
+  color: #1154D9 !important;
+  transition: color 0.2s;
   text-decoration: none;
 }
 
