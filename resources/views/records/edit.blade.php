@@ -15,6 +15,7 @@
                         </ul>
                     </div>
                 @endif
+                {{-- Enfermedades eliminado del formulario (campo vacío sin uso) --}}
                 <form action="{{ route('records.update', $record) }}" method="POST">
                     @csrf
                     @method('PUT')
@@ -24,7 +25,16 @@
                         <ul class="list-group position-absolute w-100" id="autocompleteList" style="z-index:1000; max-height:200px; overflow-y:auto;"></ul>
                     </div>
                     <input type="hidden" id="patient_id" name="patient_id" value="{{ old('patient_id', $record->patient_id ?? '') }}">
+                    <div class="mb-3 position-relative">
+                        <label for="searchDiagnostic" class="form-label">Diagnóstico</label>
+                        <input type="text" class="form-control mb-2" id="searchDiagnostic" name="searchDiagnostic" placeholder="Buscar diagnóstico por descripción..." autocomplete="off" value="{{ optional($record->diagnostic)->description ?? old('searchDiagnostic') }}">
+                        <ul class="list-group position-absolute w-100" id="autocompleteDiagnosticList" style="z-index:1000; max-height:200px; overflow-y:auto;"></ul>
+                    </div>
                     <input type="hidden" id="diagnostic_id" name="diagnostic_id" value="{{ old('diagnostic_id', $record->diagnostic_id ?? '') }}">
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" value="1" id="no_diagnostic" name="no_diagnostic" {{ empty($record->diagnostic) ? 'checked' : '' }}>
+                        <label class="form-check-label" for="no_diagnostic">Sin diagnóstico</label>
+                    </div>
 @push('scripts')
 <script>
 window.MDS = window.MDS || {};
@@ -207,36 +217,67 @@ if (!window.MDS.recordsAutocompleteInitialized) {
 }
 </script>
 @endpush
-                    <div class="mb-3">
-                        <label for="enfermedades" class="form-label">Enfermedades</label>
-                        <select name="enfermedades[]" id="enfermedades" class="form-control" multiple>
-                            @foreach($enfermedades as $e)
-                                <option value="{{ $e->id }}" {{ in_array($e->id, $record->enfermedades->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $e->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const noDiag = document.getElementById('no_diagnostic');
+                        const diagInput = document.getElementById('searchDiagnostic');
+                        const hiddenDiag = document.getElementById('diagnostic_id');
+                        const diagList = document.getElementById('autocompleteDiagnosticList');
+
+                        function updateNoDiag() {
+                            if (!diagInput || !hiddenDiag || !noDiag) return;
+                            if (noDiag.checked) {
+                                diagInput.disabled = true;
+                                diagInput.value = '';
+                                hiddenDiag.value = '';
+                                if (diagList) { diagList.innerHTML = ''; diagList.style.display = 'none'; }
+                            } else {
+                                diagInput.disabled = false;
+                                diagInput.focus();
+                            }
+                        }
+
+                        if (diagInput) {
+                            diagInput.addEventListener('input', function() {
+                                if (diagInput.value.trim().length > 0) {
+                                    noDiag.checked = false;
+                                    updateNoDiag();
+                                }
+                            });
+                        }
+
+                        if (diagList) {
+                            diagList.addEventListener('click', function() {
+                                if (noDiag) { noDiag.checked = false; updateNoDiag(); }
+                            });
+                        }
+
+                        if (noDiag) {
+                            noDiag.addEventListener('change', updateNoDiag);
+                            updateNoDiag();
+                        }
+                    });
+                    </script>
 
                     <div class="mb-3">
-                        <label for="alergias" class="form-label">Alergias</label>
-                        <select name="alergias[]" id="alergias" class="form-control" multiple>
-                            @foreach($alergias as $a)
-                                <option value="{{ $a->id }}" {{ in_array($a->id, $record->alergias->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $a->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="cirugias" class="form-label">Cirugías</label>
-                        <select name="cirugias[]" id="cirugias" class="form-control" multiple>
-                            @foreach($cirugias as $c)
-                                <option value="{{ $c->id }}" {{ in_array($c->id, $record->cirugias->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $c->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="antecedentes_salud" class="form-label">Observaciones</label>
+                        <label for="antecedentes_salud" class="form-label">Antecedesntes de Salud</label>
                         <textarea class="form-control" id="antecedentes_salud" name="antecedentes_salud" rows="3">{{ old('antecedentes_salud', $record->antecedentes_salud ?? '') }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="enfermedades_text" class="form-label">Vacunas (separadas por coma)</label>
+                        <input type="text" class="form-control" id="enfermedades_text" name="enfermedades_text" value="{{ old('enfermedades_text', isset($record->enfermedades) ? $record->enfermedades->pluck('name')->join(', ') : '') }}" placeholder="Ej: BCG, Hepatitis B">
+                    </div>
+                    <div class="mb-3">
+                        <label for="alergias_text" class="form-label">Alergias (separadas por coma)</label>
+                        <input type="text" class="form-control" id="alergias_text" name="alergias_text" value="{{ old('alergias_text', isset($record->alergias) ? $record->alergias->pluck('name')->join(', ') : '') }}" placeholder="Ej: Penicilina, Polen">
+                    </div>
+                    <div class="mb-3">
+                        <label for="cirugias_text" class="form-label">Cirugías (separadas por coma)</label>
+                        <input type="text" class="form-control" id="cirugias_text" name="cirugias_text" value="{{ old('cirugias_text', isset($record->cirugias) ? $record->cirugias->pluck('name')->join(', ') : '') }}" placeholder="Ej: Apendicectomía">
+                    </div>
+                    <div class="mb-3">
+                        <label for="medicamentos" class="form-label">Medicamentos</label>
+                        <textarea class="form-control" id="medicamentos" name="medicamentos" rows="2">{{ old('medicamentos', $record->medicamentos ?? '') }}</textarea>
                     </div>
                     <div class="mb-3">
                         <label for="fecha" class="form-label">Fecha</label>

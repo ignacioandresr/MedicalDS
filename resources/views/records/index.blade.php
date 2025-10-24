@@ -31,28 +31,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($records as $record)
+                        @forelse($records as $record)
                             <tr>
                                 <td>{{ $record->id_historial }}</td>
                                 <td>{{ $record->patient->rut ?? '' }}</td>
-                                <td>{{ $record->diagnostic->description ?? '' }}</td>
-                                <td>
-                                    @php
-                                        $parts = [];
-                                        if ($record->enfermedades && $record->enfermedades->count()) $parts[] = $record->enfermedades->pluck('name')->join(', ');
-                                        if ($record->alergias && $record->alergias->count()) $parts[] = $record->alergias->pluck('name')->join(', ');
-                                        if ($record->cirugias && $record->cirugias->count()) $parts[] = $record->cirugias->pluck('name')->join(', ');
-                                        $summary = count($parts) ? implode(' | ', $parts) : ($record->antecedentes_salud ?? '-');
-                                    @endphp
-                                    {{ \Illuminate\Support\Str::limit($summary, 80) }}
-                                </td>
+                                <td>{{ optional($record->diagnostic)->description ?? 'Sin diagnóstico' }}</td>
+                                <td>{{ !empty($record->antecedentes_salud) ? $record->antecedentes_salud : 'Sin antecedentes' }}</td>
                                 <td>{{ \Carbon\Carbon::parse($record->fecha)->format('d-m-Y') }}</td>
                                 <td>
                                     <a href="{{ route('records.show', $record->id_historial) }}" class="btn btn-primary btn-sm">Mostrar</a>
-                                    <a href="{{ route('records.edit', $record->id_historial) }}" class="btn btn-secondary btn-sm">Editar</a>
+                                    <a href="{{ route('records.edit', $record->id_historial) }}" class="btn btn-secondary btn-sm">Modificar</a>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center">Sin antecedentes</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

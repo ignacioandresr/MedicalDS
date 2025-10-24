@@ -53,7 +53,6 @@ if (!window.MDS.recordsAutocompleteInitialized) {
         const patients = window.MDS.patients;
         const diagnostics = window.MDS.diagnostics;
 
-        // --- Pacientes ---
         const input = document.getElementById('searchPatient');
         const list = document.getElementById('autocompleteList');
         const hiddenId = document.getElementById('patient_id');
@@ -120,7 +119,6 @@ if (!window.MDS.recordsAutocompleteInitialized) {
             });
         }
 
-        // --- Diagnósticos ---
         const diagnosticInput = document.getElementById('searchDiagnostic');
         const diagnosticList = document.getElementById('autocompleteDiagnosticList');
         const hiddenDiagnosticId = document.getElementById('diagnostic_id');
@@ -194,7 +192,6 @@ if (!window.MDS.recordsAutocompleteInitialized) {
             });
         }
 
-        // --- Validación al enviar ---
         const form = document.querySelector('form');
         if (form) {
             form.addEventListener('submit', function(e) {
@@ -204,12 +201,6 @@ if (!window.MDS.recordsAutocompleteInitialized) {
                     alert('Debes seleccionar un paciente de la lista para continuar.');
                     return;
                 }
-                if (hiddenDiagnosticId && !hiddenDiagnosticId.value) {
-                    e.preventDefault();
-                    if (diagnosticInput) diagnosticInput.focus();
-                    alert('Debes seleccionar un diagnóstico válido para continuar.');
-                    return;
-                }
             });
         }
     });
@@ -217,42 +208,80 @@ if (!window.MDS.recordsAutocompleteInitialized) {
 </script>
 @endpush
                 <div class="mb-3 position-relative">
-                    <label for="searchDiagnostic" class="form-label">Diagnóstico</label>
-                    <input type="text" class="form-control mb-2" id="searchDiagnostic" name="searchDiagnostic" placeholder="Buscar diagnóstico..." autocomplete="off" required>
+                    <label for="searchDiagnostic" class="form-label">Diagnóstico (opcional)</label>
+                    <input type="text" class="form-control mb-2" id="searchDiagnostic" name="searchDiagnostic" placeholder="Buscar diagnóstico..." autocomplete="off">
                     <input type="hidden" id="diagnostic_id" name="diagnostic_id">
                     <ul class="list-group position-absolute w-100" id="autocompleteDiagnosticList" style="z-index:1000; max-height:200px; overflow-y:auto;"></ul>
                 </div>
-                <div class="mb-3">
-                    <label for="enfermedades" class="form-label">Enfermedades</label>
-                    <select name="enfermedades[]" id="enfermedades" class="form-control" multiple>
-                        @foreach($enfermedades as $e)
-                            <option value="{{ $e->id }}">{{ $e->name }}</option>
-                        @endforeach
-                    </select>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" value="1" id="no_diagnostic" name="no_diagnostic" checked>
+                    <label class="form-check-label" for="no_diagnostic">Sin diagnóstico</label>
                 </div>
 
-                <div class="mb-3">
-                    <label for="alergias" class="form-label">Alergias</label>
-                    <select name="alergias[]" id="alergias" class="form-control" multiple>
-                        @foreach($alergias as $a)
-                            <option value="{{ $a->id }}">{{ $a->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
 
                 <div class="mb-3">
-                    <label for="cirugias" class="form-label">Cirugías</label>
-                    <select name="cirugias[]" id="cirugias" class="form-control" multiple>
-                        @foreach($cirugias as $c)
-                            <option value="{{ $c->id }}">{{ $c->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label for="antecedentes_salud" class="form-label">Observaciones</label>
+                    <label for="antecedentes_salud" class="form-label">Antecedentes de Salud</label>
                     <textarea class="form-control" id="antecedentes_salud" name="antecedentes_salud" rows="3">{{ old('antecedentes_salud') }}</textarea>
                 </div>
+                <div class="mb-3">
+                    <label for="enfermedades_text" class="form-label">Vacunas (separadas por coma)</label>
+                    <input type="text" class="form-control" id="enfermedades_text" name="enfermedades_text" value="{{ old('enfermedades_text') }}" placeholder="Ej: BCG, Hepatitis B">
+                </div>
+                <div class="mb-3">
+                    <label for="alergias_text" class="form-label">Alergias (separadas por coma)</label>
+                    <input type="text" class="form-control" id="alergias_text" name="alergias_text" value="{{ old('alergias_text') }}" placeholder="Ej: Penicilina, Polen">
+                </div>
+                <div class="mb-3">
+                    <label for="cirugias_text" class="form-label">Cirugías (separadas por coma)</label>
+                    <input type="text" class="form-control" id="cirugias_text" name="cirugias_text" value="{{ old('cirugias_text') }}" placeholder="Ej: Apendicectomía">
+                </div>
+                <div class="mb-3">
+                    <label for="medicamentos" class="form-label">Medicamentos</label>
+                    <textarea class="form-control" id="medicamentos" name="medicamentos" rows="2">{{ old('medicamentos') }}</textarea>
+                </div>
+                <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const noDiag = document.getElementById('no_diagnostic');
+                    const diagInput = document.getElementById('searchDiagnostic');
+                    const hiddenDiag = document.getElementById('diagnostic_id');
+                    const diagList = document.getElementById('autocompleteDiagnosticList');
+
+                    function updateNoDiag() {
+                        if (!diagInput || !hiddenDiag || !noDiag) return;
+                        if (noDiag.checked) {
+                            diagInput.disabled = true;
+                            diagInput.value = '';
+                            hiddenDiag.value = '';
+                            if (diagList) { diagList.innerHTML = ''; diagList.style.display = 'none'; }
+                        } else {
+                            diagInput.disabled = false;
+                            diagInput.focus();
+                        }
+                    }
+
+                    if (diagInput) {
+                        diagInput.addEventListener('input', function() {
+                            if (diagInput.value.trim().length > 0) {
+                                noDiag.checked = false;
+                                updateNoDiag();
+                            }
+                        });
+                    }
+
+                    if (diagList) {
+                        // Si el usuario selecciona un diagnóstico desde la lista, permitirlo y desmarcar 'Sin diagnóstico'
+                        diagList.addEventListener('click', function() {
+                            if (noDiag) { noDiag.checked = false; updateNoDiag(); }
+                        });
+                    }
+
+                    if (noDiag) {
+                        noDiag.addEventListener('change', updateNoDiag);
+                        updateNoDiag();
+                    }
+                });
+                </script>
                 <div class="mb-3">
                     <label for="fecha" class="form-label">Fecha</label>
                     <input type="date" class="form-control" id="fecha" name="fecha" required>
@@ -262,7 +291,6 @@ if (!window.MDS.recordsAutocompleteInitialized) {
         </div>
     </div>
 </div>
-@@
         </div>
     </div>
 </div>

@@ -15,6 +15,7 @@ class Record extends Model
         'diagnostic_id',
         'tratamientos',
         'antecedentes_salud',
+        'medicamentos',
         'fecha'
     ];
 
@@ -48,10 +49,10 @@ class Record extends Model
     }
     public function getAntecedentesSaludAttribute()
     {
-        return $this->attributes['tratamientos'] ?? null;
+        return $this->attributes['tratamientos'] ?? '';
     }
     public function setAntecedentesSaludAttribute($value)
     {
-        $this->attributes['tratamientos'] = $value;
+        $this->attributes['tratamientos'] = $value ?? '';
     }
 }

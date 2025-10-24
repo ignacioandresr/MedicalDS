@@ -13,29 +13,36 @@
                 <h6><span class="fw-bold">Fecha de Nacimiento:</span> {{ $record->patient->birth_date ?? '' }}</h6>
                 <h6><span class="fw-bold">Género:</span> {{ $record->patient->gender ?? '' }}</h6>
                 <h6><span class="fw-bold">Dirección:</span> {{ $record->patient->adress ?? '' }}</h6>
-                    <h6><span class="fw-bold">Diagnóstico:</span> {{ optional($record->diagnostic)->description ?? 'Sin diagn\u00f3stico' }}</h6>
-                <h6><span class="fw-bold">Enfermedades:</span>
+                    <h6><span class="fw-bold">Diagnóstico:</span> {{ optional($record->diagnostic)->description ?? 'Sin diagnóstico' }}</h6>
+                <h6><span class="fw-bold">Vacunas:</span>
                     @if($record->enfermedades && $record->enfermedades->count())
                         {{ $record->enfermedades->pluck('name')->join(', ') }}
                     @else
-                        -
+                        Sin Vacuna
                     @endif
                 </h6>
                 <h6><span class="fw-bold">Alergias:</span>
                     @if($record->alergias && $record->alergias->count())
                         {{ $record->alergias->pluck('name')->join(', ') }}
                     @else
-                        -
+                        Sin Alergia
                     @endif
                 </h6>
                 <h6><span class="fw-bold">Cirugías:</span>
                     @if($record->cirugias && $record->cirugias->count())
                         {{ $record->cirugias->pluck('name')->join(', ') }}
                     @else
-                        -
+                        Sin Cirugía
                     @endif
                 </h6>
-                <h6><span class="fw-bold">Observaciones:</span> {{ $record->antecedentes_salud }}</h6>
+                <h6><span class="fw-bold">Medicamentos:</span>
+                    @if(!empty($record->medicamentos))
+                        {{ $record->medicamentos }}
+                    @else
+                        Sin Medicamento
+                    @endif
+                </h6>
+                <h6><span class="fw-bold">Antecedentes de Salud:</span> {{ !empty($record->antecedentes_salud) ? $record->antecedentes_salud : 'Sin antecedentes' }}</h6>
                 <h6><span class="fw-bold">Fecha:</span> {{ $record->fecha }}</h6>
             </div>
         </div>

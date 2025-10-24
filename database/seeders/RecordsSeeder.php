@@ -44,19 +44,11 @@ class RecordsSeeder extends Seeder
 
             $diagnostic = null;
             if ($patient) {
+                // Try to find an existing diagnostic for that patient on the same date.
+                // NOTE: Do NOT auto-create a Diagnostic here — leave it null if none exists.
                 $diagnostic = Diagnostic::where('patient_id', $patient->id)
                     ->where('date', $r['fecha']->format('Y-m-d'))
                     ->first();
-
-                // If there's no diagnostic for that date, create a minimal one so foreign key constraint is satisfied
-                if (! $diagnostic) {
-                    $diagnostic = Diagnostic::create([
-                        'patient_id' => $patient->id,
-                        'description' => 'Autocreado por RecordsSeeder',
-                        'date' => $r['fecha'],
-                        'user_id' => 1,
-                    ]);
-                }
             }
 
             Record::updateOrCreate(
