@@ -10,9 +10,9 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card text-center p-4">
-                        <h1 class="display-5 fw-bold">Добро пожаловать, марсианин!</h1>
-                        <p class="lead">Вы находитесь в интерфейсе Марсианина — здесь вы можете тренироваться и просматривать клинические случаи.</p>
-                        <a href="{{ route('visitor.training.ru') }}" class="btn btn-martian btn-lg mt-3">Начать тренировку</a>
+                        <h1 class="display-5 fw-bold">{{ __('messages.visitor.welcome.title') }}</h1>
+                            <p class="lead">{{ __('messages.visitor.welcome.lead') }}</p>
+                            <a href="{{ route('visitor.training.ru') }}" class="btn btn-martian btn-lg mt-3">{{ __('messages.visitor.welcome.start') }}</a>
                     </div>
                 </div>
             </div>

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             AssignRoleSeeder::class,
             PatientsSeeder::class,
             DiagnosticsSeeder::class,
+            GeneralDiagnosticsSeeder::class,
             RecordsSeeder::class,
             ClinicalCaseSeeder::class,
         ]);

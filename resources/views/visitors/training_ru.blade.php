@@ -5,9 +5,9 @@
         <div class="row justify-content-center">
                 <div class="col-md-8">
                 <div class="card" style="background-color: rgba(255,255,255,0.85);">
-                    <div class="card-header">Тренировка: Клинические случаи</div>
+                    <div class="card-header">{{ __('messages.visitor.training.title') }}</div>
                                     <div class="card-body" style="background-color: transparent;">
-                                        <p>Добро пожаловать в тренировочный режим. Здесь вы сможете работать с учебными клиническими случаями без доступа к реальным медицинским данным.</p>
+                                        <p>{{ __('messages.visitor.training.intro') }}</p>
                                         @if(isset($cases) && $cases->count())
                                             <div class="list-group training-list">
                                                 @foreach($cases as $case)
@@ -18,13 +18,13 @@
                                             </div>
                                         @else
                                             <div class="training-fallback">
-                                                <a href="#" class="visitor-link">Случай 1: Диагностика инфекции</a><br>
-                                                <a href="#" class="visitor-link">Случай 2: Хроническое заболевание</a>
+                                                <a href="#" class="visitor-link">{{ __('messages.visitor.training.no_cases_case1') }}</a><br>
+                                                <a href="#" class="visitor-link">{{ __('messages.visitor.training.no_cases_case2') }}</a>
                                             </div>
                                         @endif
 
                                         <div class="mt-3">
-                                            <a href="{{ route('visitor.home.ru') }}" class="btn btn-martian">Вернуться</a>
+                                            <a href="{{ route('visitor.home.ru') }}" class="btn btn-martian">{{ __('messages.visitor.training.back_btn') }}</a>
                                         </div>
                                     </div>
                 </div>

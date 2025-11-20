@@ -9,10 +9,10 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
                 <div class="card text-center" style="background-color: rgba(255,255,255,0.85);">
-                <div class="card-header">Тренировка</div>
+                <div class="card-header">{{ __('messages.visitor.training.header') }}</div>
                 <div class="card-body">
-                    <p>Добро пожаловать в тренировочный режим. Нажмите кнопку ниже, чтобы начать тренировку по клиническим случаям.</p>
-                    <a href="{{ route('visitor.training.ru') }}" class="btn btn-primary">Начать тренировку</a>
+                    <p>{{ __('messages.visitor.training.welcome') }}</p>
+                    <a href="{{ route('visitor.training.ru') }}" class="btn btn-primary">{{ __('messages.visitor.training.start_btn') }}</a>
                 </div>
             </div>
         </div>

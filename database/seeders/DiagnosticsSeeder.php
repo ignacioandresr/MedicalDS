@@ -39,16 +39,31 @@ class DiagnosticsSeeder extends Seeder
 
         foreach ($diagnostics as $d) {
             $rutClean = preg_replace('/[^0-9kK]/', '', $d['rut']);
-            $patient = Patient::where('rut', $rutClean)->first();
+            $patient = null;
+            if (!empty($rutClean)) {
+                $patient = Patient::where('rut', $rutClean)->first();
+            }
+
+            // Si no encontramos paciente por RUT, usar el primer paciente existente como fallback
+            $patientId = $patient ? $patient->id : null;
+            if (!$patientId) {
+                $firstPatient = Patient::first();
+                if ($firstPatient) {
+                    $patientId = $firstPatient->id;
+                } else {
+                    // No hay pacientes en la DB; saltar esta entrada para evitar violación de integridad
+                    continue;
+                }
+            }
 
             Diagnostic::updateOrCreate(
                 [
-                    'patient_id' => $patient ? $patient->id : null,
+                    'patient_id' => $patientId,
                     'description' => $d['description'],
                     'date' => $d['date'],
                 ],
                 [
-                    'patient_id' => $patient ? $patient->id : null,
+                    'patient_id' => $patientId,
                     'description' => $d['description'],
                     'date' => $d['date'],
                     'user_id' => $d['user_id'] ?? null,

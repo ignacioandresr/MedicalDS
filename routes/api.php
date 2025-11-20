@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\PatientController;
+use App\Http\Controllers\Api\GeneralDiagnosticController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group (['as' => 'api.'], function () {
+    Route::apiResource('patients', PatientController::class);
+    Route::apiResource('general-diagnostics', GeneralDiagnosticController::class);
 });

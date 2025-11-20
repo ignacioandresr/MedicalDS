@@ -5,6 +5,7 @@ use App\Models\Diagnostic;
 use App\Models\Patient;
 use App\Models\Symptom;
 use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Http\Request;
 use App\Models\Record;
 
 class DiagnosticController extends Controller
@@ -118,5 +119,45 @@ class DiagnosticController extends Controller
     {
         $diagnostic->delete();
         return redirect()->route('diagnostics.index')->with('success', 'Diagnostic deleted successfully.');
+    }
+
+    /**
+     * Sugiere diagnósticos probables a partir de una lista de síntomas (IDs).
+     * Retorna JSON con diagnósticos ordenados por número de síntomas coincidentes.
+     */
+    public function suggest(Request $request)
+    {
+        $symptomIds = $request->input('symptoms', []);
+        if (!is_array($symptomIds)) {
+            $symptomIds = [$symptomIds];
+        }
+        if (empty($symptomIds)) {
+            return response()->json(['data' => []]);
+        }
+
+        // Cargar diagnósticos con conteo de coincidencias
+        $diagnostics = Diagnostic::with('symptoms')->get()->map(function ($d) use ($symptomIds) {
+            $matched = $d->symptoms->whereIn('id', $symptomIds);
+            $d->matched_count = $matched->count();
+            $d->matched_symptoms = $matched->pluck('name');
+            $d->total_symptoms = $d->symptoms->count();
+            return $d;
+        })->filter(function ($d) {
+            return $d->matched_count > 0;
+        })->sortByDesc(function ($d) {
+            return $d->matched_count;
+        })->values();
+
+        $payload = $diagnostics->map(function ($d) {
+            return [
+                'id' => $d->id,
+                'description' => $d->description,
+                'matched_count' => $d->matched_count,
+                'total_symptoms' => $d->total_symptoms,
+                'matched_symptoms' => $d->matched_symptoms,
+            ];
+        });
+
+        return response()->json(['data' => $payload]);
     }
 }

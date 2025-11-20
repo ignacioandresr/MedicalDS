@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "Infección respiratoria aguda",
+    "title_ru": "Острая респираторная инфекция",
+    "title_es": "Infección respiratoria aguda",
+    "description": "Paciente con tos, fiebre y malestar general.",
+    "description_ru": "Пациент с кашлем, лихорадкой и общим недомоганием.",
+    "steps": "Evaluación clínica, examen físico, apoyo diagnóstico según riesgo.",
+    "options": ["Neumonía", "Bronquitis aguda", "Resfriado común"]
+  },
+  {
+    "id": 2,
+    "title": "Dolor abdominal agudo",
+    "title_ru": "Острая боль в животе",
+    "title_es": "Dolor abdominal agudo",
+    "description": "Paciente con dolor abdominal localizado y náuseas.",
+    "description_ru": "Пациент с локализованной болью в животе и тошнотой.",
+    "steps": "Anamnesis, examen abdominal, pruebas de imagen según sospecha.",
+    "options": ["Apendicitis", "Colecistitis", "Gastroenteritis"]
+  }
+]

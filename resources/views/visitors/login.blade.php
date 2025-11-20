@@ -48,6 +48,13 @@
                                 </button>
                             </div>
                         </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6 offset-md-4">
+                                <a href="{{ route('visitor.register') }}" class="btn fw-bold btn-martian" style="background-color:#BAF241; color:#000;">
+                                    Регистрация марсианина
+                                </a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

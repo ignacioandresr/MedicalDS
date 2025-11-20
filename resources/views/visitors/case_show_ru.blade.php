@@ -5,10 +5,10 @@
         <div class="card" style="background-color: rgba(255,255,255,0.85);">
             <div class="card-header">{{ $case->title_ru ?: $case->title ?: $case->title_es }}</div>
             <div class="card-body">
-                <h5>Описание</h5>
+                <h5>{{ __('messages.visitor.case.description') }}</h5>
                 <p>{{ $case->description_ru ?: $case->description ?: $case->description_es }}</p>
 
-                <h5>Шаги</h5>
+                <h5>{{ __('messages.visitor.case.steps') }}</h5>
                 <p>{!! nl2br(e($case->steps_ru ?: $case->steps ?: $case->steps_es)) !!}</p>
 
                 <form method="POST" action="{{ route('visitor.case.attempt', $case) }}">
@@ -34,7 +34,7 @@
 
                     @if(count($options))
                         <div class="mb-3">
-                            <label class="form-label">Выберите ответ</label>
+                            <label class="form-label">{{ __('messages.visitor.case.select_answer') }}</label>
                             @foreach($options as $idx => $opt)
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="answer" id="opt{{ $idx }}" value="{{ $opt }}" required>
@@ -44,19 +44,19 @@
                         </div>
                     @else
                         <div class="mb-3">
-                            <label class="form-label">Ваш ответ</label>
+                            <label class="form-label">{{ __('messages.visitor.case.your_answer') }}</label>
                             <input name="answer" class="form-control" required>
                         </div>
                     @endif
 
-                    <button class="btn btn-primary">Отправить</button>
+                    <button class="btn btn-primary">{{ __('messages.visitor.case.submit') }}</button>
                 </form>
 
                 @if(session('attempt_result'))
                     @if(session('attempt_result') === 'correct')
-                        <div class="alert alert-success mt-3">Правильно!</div>
+                        <div class="alert alert-success mt-3">{{ __('messages.visitor.case.correct') }}</div>
                     @else
-                        <div class="alert alert-danger mt-3">Неправильно. Попробуйте еще.</div>
+                        <div class="alert alert-danger mt-3">{{ __('messages.visitor.case.incorrect') }}</div>
                     @endif
                 @endif
 

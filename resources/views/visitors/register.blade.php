@@ -14,6 +14,11 @@
                     @if(session('status'))
                         <div class="alert alert-success">{{ session('status') }}</div>
                     @endif
+                    <div class="mb-3 text-end">
+                        <a href="{{ route('visitor.login.form') }}" class="btn fw-bold btn-martian" style="background-color:#BAF241; color:#000;">
+                            ← Вернуться ко входу
+                        </a>
+                    </div>
                     <form method="POST" action="{{ route('visitor.store') }}">
                         @csrf
 
