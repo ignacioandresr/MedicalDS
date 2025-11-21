@@ -1,0 +1,19 @@
+pruebas unitarias:
+
+Comprueban modelos y relaciones básicas (ej: SymptomModelTest).
+Se agregarán similares para Patient, Diagnostic, GeneralDiagnostic.
+
+pruebas de integración:
+
+Verifican rutas y auth (ej: crear diagnóstico en DiagnosticGenerationTest, acceso historial en MedicalHistoryAccessTest).
+Falta endpoint de síntomas para completar RF-01.
+
+pruebas de sistema:
+
+Combinar: crear paciente → añadir síntomas → generar diagnóstico → ver historial.
+Aún pendientes partes: síntomas, exportar PDF, traducción, simulación, offline.
+
+pruebas de aceptación:
+
+Cada requerimiento tendrá un test que demuestre: diagnóstico <3s, historial sólo con rol, síntoma registrado, etc.
+Matriz en docs/trazabilidad.md muestra qué ya está y qué falta.
