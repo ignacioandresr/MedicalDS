@@ -67,6 +67,7 @@ class DiagnosticController extends Controller
 
     public function show(Diagnostic $diagnostic)
     {
+        $diagnostic->load('symptoms');
         return view('diagnostics.show', compact('diagnostic'));
     }
 

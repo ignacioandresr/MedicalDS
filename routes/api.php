@@ -23,8 +23,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group (['as' => 'api.'], function () {
+    // Ruta de estado de autenticación para depurar problemas de acceso desde navegador.
+    Route::get('auth-status', function (Request $request) {
+        $user = $request->user();
+        return response()->json([
+            'authenticated' => (bool)$user,
+            'user_id' => $user?->id,
+            'email' => $user?->email,
+            'roles' => $user ? $user->roles->pluck('name') : [],
+            'guards_attempted' => config('sanctum.guard'),
+            'cookies' => array_keys($request->cookies->all()),
+        ]);
+    })->name('auth-status');
+
     Route::apiResource('patients', PatientController::class)->middleware(['auth:sanctum', 'role:admin']);
     Route::apiResource('general-diagnostics', GeneralDiagnosticController::class);
     Route::apiResource('records', RecordController::class);
-    Route::get('prescriptions/{prescription}', [PrescriptionController::class, 'show'])->middleware('auth:sanctum')->name('prescriptions.show');
 });

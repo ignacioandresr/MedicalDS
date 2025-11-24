@@ -1,0 +1,69 @@
+@startuml MedicalDS
+
+entity "User" as user {
+  *id : bigint
+  name : string
+  email : string
+  password : string
+}
+
+entity "Patient" as patient {
+  *id : bigint
+  rut : string
+  name : string
+  birth_date : date
+  gender : string
+  adress : string
+}
+
+entity "Diagnostic" as diagnostic {
+  *id : bigint
+  description : string
+  date : date
+  patient_id : bigint
+  user_id : bigint
+}
+
+entity "Record" as record {
+  *id_historial : bigint
+  patient_id : bigint
+  diagnostic_id : bigint
+  tratamientos : text
+  fecha : date
+}
+
+entity "Enfermedad" as enfermedad {
+  *id : bigint
+  name : string
+}
+
+entity "Alergia" as alergia {
+  *id : bigint
+  name : string
+}
+
+entity "Enfermedad_Record" as enfermedad_record {
+  *id : bigint
+  enfermedad_id : bigint
+  record_id : bigint
+}
+
+entity "Alergia_Record" as alergia_record {
+  *id : bigint
+  alergia_id : bigint
+  record_id : bigint
+}
+
+user --{ diagnostic : user_id
+patient --{ diagnostic : patient_id
+patient --{ record : patient_id
+diagnostic --{ record : diagnostic_id
+record --{ enfermedad_record : id_historial
+record --{ alergia_record : id_historial
+enfermedad --{ enfermedad_record : id
+diagnostic --{ enfermedad_record : enfermedad_id
+alergia --{ alergia_record : id
+alergia_record --{ record : record_id
+enfermedad_record --{ record : record_id
+
+@enduml

@@ -42,7 +42,12 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            // Cookies y sesión para permitir autenticación por guard 'web' vía cookie en rutas API
+            \App\Http\Middleware\EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            // Habilitar lectura de la cookie de sesión en rutas API (solo si se necesita acceso vía navegador con login web)
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],

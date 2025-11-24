@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Documentación API REST</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #f6f7fb; }
+        .api-card {
+            border-left: 4px solid #0d6efd; 
+            background: white;
+            box-shadow: 0 3px 16px rgba(40,42,68,0.07);
+        }
+        .endpoint-method {
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+        .GET { background: #e8f4ff; color: #266dd3; }
+        .POST { background: #f1fff0; color: #45b26b; }
+        .PUT { background: #fff6e0; color: #f6ae2d; }
+        .DELETE { background: #ffeaea; color: #f44336; }
+        code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px;}
+    </style>
+</head>
+<body>
+<div class="container my-5">
+    <h1 class="display-5 fw-bold text-primary mb-4">Documentación de API REST</h1>
+    <p class="lead mb-5 text-secondary">Opciones de las entidades <strong>Usuarios</strong> y <strong>Productos</strong>.<br>
+        <span class="badge bg-dark">API Base: <code>/api/v1</code></span>
+    </p>
+
+    <!-- Usuarios -->
+    <div class="api-card p-4 mb-4 rounded">
+        <h2 class="h4 mb-3"><i class="bi bi-person"></i> Usuarios</h2>
+        <div class="accordion" id="usuariosAccordion">
+            <!-- Listar usuarios -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingUsuarios1">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUsuarios1" aria-expanded="false" aria-controls="collapseUsuarios1">
+                        <span class="endpoint-method GET">GET</span>
+                        <code>/api/v1/usuarios</code>
+                        <span class="text-secondary ms-2">Listar usuarios</span>
+                    </button>
+                </h2>
+                <div id="collapseUsuarios1" class="accordion-collapse collapse" aria-labelledby="headingUsuarios1" data-bs-parent="#usuariosAccordion">
+                    <div class="accordion-body">
+                        <strong>Ejemplo de uso:</strong>
+                        <pre><code>curl -X GET http://tuapi.com/api/v1/usuarios</code></pre>
+                        <strong>Códigos de respuesta:</strong>
+                        <ul>
+                            <li><code>200 OK</code> - Éxito</li>
+                            <li><code>401 Unauthorized</code> - No autenticado</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Crear usuario -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingUsuarios2">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUsuarios2" aria-expanded="false" aria-controls="collapseUsuarios2">
+                        <span class="endpoint-method POST">POST</span>
+                        <code>/api/v1/usuarios</code>
+                        <span class="text-secondary ms-2">Crear usuario</span>
+                    </button>
+                </h2>
+                <div id="collapseUsuarios2" class="accordion-collapse collapse" aria-labelledby="headingUsuarios2" data-bs-parent="#usuariosAccordion">
+                    <div class="accordion-body">
+                        <strong>Ejemplo de uso:</strong>
+                        <pre><code>curl -X POST http://tuapi.com/api/v1/usuarios \
+-H "Content-Type: application/json" \
+-d '{"nombre":"Juan","email":"juan@correo.com","password":"123456"}'</code></pre>
+                        <strong>Códigos de respuesta:</strong>
+                        <ul>
+                            <li><code>201 Created</code> - Usuario creado</li>
+                            <li><code>400 Bad Request</code> - Datos inválidos</li>
+                            <li><code>409 Conflict</code> - Usuario ya existe</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Obtener usuario -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingUsuarios3">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUsuarios3" aria-expanded="false" aria-controls="collapseUsuarios3">
+                        <span class="endpoint-method GET">GET</span>
+                        <code>/api/v1/usuarios/{id}</code>
+                        <span class="text-secondary ms-2">Obtener usuario</span>
+                    </button>
+                </h2>
+                <div id="collapseUsuarios3" class="accordion-collapse collapse" aria-labelledby="headingUsuarios3" data-bs-parent="#usuariosAccordion">
+                    <div class="accordion-body">
+                        <strong>Ejemplo de uso:</strong>
+                        <pre><code>curl -X GET http://tuapi.com/api/v1/usuarios/1</code></pre>
+                        <strong>Códigos de respuesta:</strong>
+                        <ul>
+                            <li><code>200 OK</code> - Éxito</li>
+                            <li><code>404 Not Found</code> - Usuario no existe</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Actualizar usuario -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingUsuarios4">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUsuarios4" aria-expanded="false" aria-controls="collapseUsuarios4">
+                        <span class="endpoint-method PUT">PUT</span>
+                        <code>/api/v1/usuarios/{id}</code>
+                        <span class="text-secondary ms-2">Actualizar usuario</span>
+                    </button>
+                </h2>
+                <div id="collapseUsuarios4" class="accordion-collapse collapse" aria-labelledby="headingUsuarios4" data-bs-parent="#usuariosAccordion">
+                    <div class="accordion-body">
+                        <strong>Ejemplo de uso:</strong>
+                        <pre><code>curl -X PUT http://tuapi.com/api/v1/usuarios/1 \
+-H "Content-Type: application/json" \
+-d '{"nombre":"Juan Pérez"}'</code></pre>
+                        <strong>Códigos de respuesta:</strong>
+                        <ul>
+                            <li><code>200 OK</code> - Usuario actualizado</li>
+                            <li><code>404 Not Found</code> - Usuario no existe</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Eliminar usuario -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingUsuarios5">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUsuarios5" aria-expanded="false" aria-controls="collapseUsuarios5">
+                        <span class="endpoint-method DELETE">DELETE</span>
+                        <code>/api/v1/usuarios/{id}</code>
+                        <span class="text-secondary ms-2">Eliminar usuario</span>
+                    </button>
+                </h2>
+                <div id="collapseUsuarios5" class="accordion-collapse collapse" aria-labelledby="headingUsuarios5" data-bs-parent="#usuariosAccordion">
+                    <div class="accordion-body">
+                        <strong>Ejemplo de uso:</strong>
+                        <pre><code>curl -X DELETE http://tuapi.com/api/v1/usuarios/1</code></pre>
+                        <strong>Códigos de respuesta:</strong>
+                        <ul>
+                            <li><code>204 No Content</code> - Usuario eliminado</li>
+                            <li><code>404 Not Found</code> - Usuario no existe</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Productos -->
+    <div class="api-card p-4 mb-4 rounded">
+        <h2 class="h4 mb-3"><i class="bi bi-box-seam"></i> Productos</h2>
+        <div class="accordion" id="productosAccordion">
+            <!-- Listar productos -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingProductos1">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProductos1" aria-expanded="false" aria-controls="collapseProductos1">
+                        <span class="endpoint-method GET">GET</span>
+                        <code>/api/v1/productos</code>
+                        <span class="text-secondary ms-2">Listar productos</span>
+                    </button>
+                </h2>
+                <div id="collapseProductos1" class="accordion-collapse collapse" aria-labelledby="headingProductos1" data-bs-parent="#productosAccordion">
+                    <div class="accordion-body">
+                        <strong>Ejemplo de uso:</strong>
+                        <pre><code>curl -X GET http://tuapi.com/api/v1/productos</code></pre>
+                        <strong>Códigos de respuesta:</strong>
+                        <ul>
+                            <li><code>200 OK</code> - Éxito</li>
+                            <li><code>401 Unauthorized</code> - No autenticado</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Crear producto -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingProductos2">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProductos2" aria-expanded="false" aria-controls="collapseProductos2">
+                        <span class="endpoint-method POST">POST</span>
+                        <code>/api/v1/productos</code>
+                        <span class="text-secondary ms-2">Crear producto</span>
+                    </button>
+                </h2>
+                <div id="collapseProductos2" class="accordion-collapse collapse" aria-labelledby="headingProductos2" data-bs-parent="#productosAccordion">
+                    <div class="accordion-body">
+                        <strong>Ejemplo de uso:</strong>
+                        <pre><code>curl -X POST http://tuapi.com/api/v1/productos \
+-H "Content-Type: application/json" \
+-d '{"nombre":"Laptop","precio":1499.99,"stock":5}'</code></pre>
+                        <strong>Códigos de respuesta:</strong>
+                        <ul>
+                            <li><code>201 Created</code> - Producto creado</li>
+                            <li><code>400 Bad Request</code> - Datos inválidos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Obtener producto -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingProductos3">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProductos3" aria-expanded="false" aria-controls="collapseProductos3">
+                        <span class="endpoint-method GET">GET</span>
+                        <code>/api/v1/productos/{id}</code>
+                        <span class="text-secondary ms-2">Obtener producto</span>
+                    </button>
+                </h2>
+                <div id="collapseProductos3" class="accordion-collapse collapse" aria-labelledby="headingProductos3" data-bs-parent="#productosAccordion">
+                    <div class="accordion-body">
+                        <strong>Ejemplo de uso:</strong>
+                        <pre><code>curl -X GET http://tuapi.com/api/v1/productos/1</code></pre>
+                        <strong>Códigos de respuesta:</strong>
+                        <ul>
+                            <li><code>200 OK</code> - Éxito</li>
+                            <li><code>404 Not Found</code> - Producto no existe</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Actualizar producto -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingProductos4">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProductos4" aria-expanded="false" aria-controls="collapseProductos4">
+                        <span class="endpoint-method PUT">PUT</span>
+                        <code>/api/v1/productos/{id}</code>
+                        <span class="text-secondary ms-2">Actualizar producto</span>
+                    </button>
+                </h2>
+                <div id="collapseProductos4" class="accordion-collapse collapse" aria-labelledby="headingProductos4" data-bs-parent="#productosAccordion">
+                    <div class="accordion-body">
+                        <strong>Ejemplo de uso:</strong>
+                        <pre><code>curl -X PUT http://tuapi.com/api/v1/productos/1 \
+-H "Content-Type: application/json" \
+-d '{"precio":1399.99}'</code></pre>
+                        <strong>Códigos de respuesta:</strong>
+                        <ul>
+                            <li><code>200 OK</code> - Producto actualizado</li>
+                            <li><code>404 Not Found</code> - Producto no existe</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Eliminar producto -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingProductos5">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProductos5" aria-expanded="false" aria-controls="collapseProductos5">
+                        <span class="endpoint-method DELETE">DELETE</span>
+                        <code>/api/v1/productos/{id}</code>
+                        <span class="text-secondary ms-2">Eliminar producto</span>
+                    </button>
+                </h2>
+                <div id="collapseProductos5" class="accordion-collapse collapse" aria-labelledby="headingProductos5" data-bs-parent="#productosAccordion">
+                    <div class="accordion-body">
+                        <strong>Ejemplo de uso:</strong>
+                        <pre><code>curl -X DELETE http://tuapi.com/api/v1/productos/1</code></pre>
+                        <strong>Códigos de respuesta:</strong>
+                        <ul>
+                            <li><code>204 No Content</code> - Producto eliminado</li>
+                            <li><code>404 Not Found</code> - Producto no existe</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

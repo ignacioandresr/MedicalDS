@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Patient;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Js;
 
 class PatientController extends Controller
@@ -17,6 +18,28 @@ class PatientController extends Controller
      */
     public function index(): JsonResponse
     {
+        // Debug opcional para diagnosticar problema de acceso vía navegador.
+        // Usar: /api/patients?debug=1
+        if (request()->boolean('debug')) {
+            $user = auth()->user();
+            return response()->json([
+                'debug' => true,
+                'authenticated' => auth()->check(),
+                'guard' => Auth::getDefaultDriver(),
+                'user' => $user ? [
+                    'id' => $user->id,
+                    'email' => $user->email,
+                    'roles' => $user->roles->pluck('name'),
+                ] : null,
+                'cookies_sent' => array_keys(request()->cookies->all()),
+                'headers' => [
+                    'accept' => request()->header('Accept'),
+                    'authorization_present' => request()->hasHeader('Authorization'),
+                    'x_xsrf_token_present' => request()->hasHeader('X-XSRF-TOKEN'),
+                ],
+            ], 200);
+        }
+
         $patients = Patient::all();
         return response()->json(['data' => $patients], 200);
     }
@@ -26,9 +49,9 @@ class PatientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): JsonResponse
     {
-        //
+        return response()->json(['message' => 'Not implemented'], 501);
     }
 
     /**
@@ -70,9 +93,9 @@ class PatientController extends Controller
      * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function edit(Patient $patient)
+    public function edit(Patient $patient): JsonResponse
     {
-        //
+        return response()->json(['message' => 'Not implemented'], 501);
     }
 
     /**
@@ -82,9 +105,9 @@ class PatientController extends Controller
      * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Patient $patient)
+    public function update(Request $request, Patient $patient): JsonResponse
     {
-        //
+        return response()->json(['message' => 'Not implemented'], 501);
     }
 
     /**

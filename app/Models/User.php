@@ -13,6 +13,9 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
+    // Spatie Permission guard to use even when authenticating via Sanctum tokens
+    protected $guard_name = 'web';
+
     /**
      * The attributes that are mass assignable.
      *
