@@ -185,7 +185,6 @@
 
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
                         @unless(auth()->check())
-                            {{-- Switch de interfaz marciana solo visible en móvil (dentro del collapse) --}}
                             <li class="nav-item my-1 d-lg-none">
                                 <div class="form-check form-switch mb-0 px-3">
                                     <input class="form-check-input" type="checkbox" id="martian-interface-switch-mobile" {{ request()->routeIs('visitor.*') ? 'checked' : '' }}>
@@ -232,6 +231,8 @@
                                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownUser">
                                                 <a class="dropdown-item login-btn" href="{{ route('profile.show') }}">Perfil</a>
                                                 <a class="dropdown-item login-btn" href="{{ route('profile.edit') }}">Editar</a>
+                                                <div class="dropdown-divider" style="border-color: rgba(0,0,0,0.1);"></div>
+                                                <a class="dropdown-item login-btn" href="{{ route('support.index') }}">Soporte</a>
                                                 @if(method_exists(Auth::user(), 'hasRole') && Auth::user()->hasRole('admin'))
                                                     <div class="dropdown-divider" style="border-color: rgba(0,0,0,0.1);"></div>
                                                     <a class="dropdown-item login-btn" href="{{ route('admin.users') }}">Usuarios</a>
@@ -271,8 +272,6 @@
                 </div>
             </div>
         </nav>
-    {{-- Aviso offline eliminado --}}
-    {{-- Se ha eliminado la sección de héroe con botones de registrar e iniciar sesión marciano --}}
 
         <main>
             <div class="page-content">

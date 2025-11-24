@@ -16,6 +16,8 @@
                     <p>{{ $appointment->notes }}</p>
 
                     <div class="d-flex justify-content-end gap-2">
+                        <a href="{{ route('prescriptions.index', ['appointment_id'=>$appointment->id]) }}" class="btn btn-primary">Recetas</a>
+                        <a href="{{ route('prescriptions.create', ['appointment_id'=>$appointment->id]) }}" class="btn btn-success">Nueva Receta</a>
                         <a href="{{ route('appointments.edit', $appointment) }}" class="btn btn-secondary">Editar</a>
                         <a href="{{ route('appointments.index') }}" class="btn btn-outline-primary">Volver</a>
                     </div>

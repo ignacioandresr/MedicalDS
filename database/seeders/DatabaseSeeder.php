@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             GeneralDiagnosticsSeeder::class,
             RecordsSeeder::class,
             ClinicalCaseSeeder::class,
+            PrescriptionSeeder::class,
         ]);
     }
 }

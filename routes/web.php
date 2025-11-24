@@ -6,6 +6,7 @@ use App\Http\Controllers\DiagnosticController;
 
 use App\Http\Controllers\RecordController;
 use App\Http\Controllers\SymptomController;
+use App\Http\Controllers\SupportTicketController;
 
 Route::middleware(['auth', 'block.martian'])->group(function () {
     Route::resource('patients', PatientController::class);
@@ -16,6 +17,8 @@ Route::middleware(['auth', 'block.martian'])->group(function () {
     Route::resource('symptoms', SymptomController::class);
     Route::post('symptoms/suggest', [SymptomController::class, 'suggest'])->name('symptoms.suggest');
     Route::resource('appointments', App\Http\Controllers\AppointmentController::class);
+    Route::resource('prescriptions', App\Http\Controllers\PrescriptionController::class);
+    Route::resource('support', SupportTicketController::class);
 });
 
 

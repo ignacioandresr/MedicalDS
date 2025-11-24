@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\Patient;
+use App\Models\Prescription;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
@@ -16,8 +17,13 @@ class AppointmentController extends Controller
 
     public function create()
     {
-        $patients = Patient::all();
-        return view('appointments.create', compact('patients'));
+        $patients = Patient::orderBy('name')->get();
+        // Últimas recetas creadas (limitadas) con paciente para mostrar contexto
+        $prescriptions = Prescription::with('patient')
+            ->orderByDesc('id')
+            ->limit(25)
+            ->get();
+        return view('appointments.create', compact('patients','prescriptions'));
     }
 
     public function store(Request $request)
@@ -32,9 +38,22 @@ class AppointmentController extends Controller
 
         $data['user_id'] = auth()->id();
 
-        Appointment::create($data);
+        $appointment = Appointment::create($data);
 
-        return redirect()->route('appointments.index')->with('success', 'Cita creada correctamente.');
+        // Crear receta médica opcional si se proporcionan campos mínimos
+        if ($request->filled('prescription_title') && $request->filled('prescription_content')) {
+            Prescription::create([
+                'appointment_id' => $appointment->id,
+                'patient_id' => $appointment->patient_id,
+                'user_id' => auth()->id(),
+                'title' => $request->input('prescription_title'),
+                'content' => $request->input('prescription_content'),
+                'indications' => $request->input('prescription_indications'),
+            ]);
+            return redirect()->route('appointments.show', $appointment)->with('success', 'Cita y receta creadas correctamente.');
+        }
+
+        return redirect()->route('appointments.show', $appointment)->with('success', 'Cita creada correctamente.');
     }
 
     public function show(Appointment $appointment)

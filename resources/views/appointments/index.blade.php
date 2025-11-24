@@ -5,7 +5,10 @@
         <div class="col-md-10">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h1 class="fw-bold">Citas</h1>
-                <a href="{{ route('appointments.create') }}" class="btn btn-primary">Agregar Cita</a>
+                <div class="d-flex align-items-center">
+                    <a href="{{ route('appointments.create') }}" class="btn btn-primary">Agregar Cita</a>
+                    <a href="{{ route('prescriptions.index') }}" class="btn btn-outline-primary ms-2">Recetas Médicas</a>
+                </div>
             </div>
 
             @if(session('success'))
