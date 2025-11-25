@@ -1,69 +1,140 @@
-@startuml MedicalDS
 
-entity "User" as user {
-  *id : bigint
-  name : string
-  email : string
-  password : string
+@startuml MedicalDS_Relational
+title Modelo Relacional — MedicalDS
+skinparam backgroundColor #FAFAFA
+skinparam entity {
+  BackgroundColor<<main>> #E3F2FD
+  BackgroundColor<<aux>> #FFF3E0
+  BorderColor #1976D2
+  FontSize 12
+  FontColor #333
+}
+skinparam roundcorner 20
+skinparam shadowing true
+
+' Agrupación visual
+package "Usuarios y Pacientes" {
+  entity "users" as users <<main>> {
+    *id : bigint
+    username : varchar
+    email : varchar
+    password : varchar
+    role : varchar <<enum:user,admin,visitor>>
+    created_at : datetime
+  }
+  entity "patients" as patients <<main>> {
+    *id : bigint
+    first_name : varchar
+    last_name : varchar
+    dob : date
+    gender : varchar
+    contact_info : text
+    user_id : bigint
+  }
 }
 
-entity "Patient" as patient {
-  *id : bigint
-  rut : string
-  name : string
-  birth_date : date
-  gender : string
-  adress : string
+package "Atención Médica" {
+  entity "appointments" as appointments <<main>> {
+    *id : bigint
+    patient_id : bigint
+    user_id : bigint
+    scheduled_at : datetime
+    status : varchar
+    notes : text
+  }
+  entity "records" as records <<main>> {
+    *id : bigint
+    patient_id : bigint
+    appointment_id : bigint
+    notes : text
+    created_at : datetime
+    created_by : bigint
+  }
+  entity "prescriptions" as prescriptions <<main>> {
+    *id : bigint
+    record_id : bigint
+    appointment_id : bigint
+    patient_id : bigint
+    prescribed_by : bigint
+    medication : varchar
+    dosage : varchar
+    instructions : text
+    issued_at : datetime
+  }
 }
 
-entity "Diagnostic" as diagnostic {
-  *id : bigint
-  description : string
-  date : date
-  patient_id : bigint
-  user_id : bigint
+package "Casos y Diagnósticos" {
+  entity "clinical_cases" as clinical_cases <<main>> {
+    *id : bigint
+    patient_id : bigint
+    title : varchar
+    description : text
+    created_at : datetime
+    created_by : bigint
+  }
+  entity "diagnostics" as diagnostics <<main>> {
+    *id : bigint
+    clinical_case_id : bigint
+    name : varchar
+    description : text
+    date : date
+    performed_by : bigint
+  }
+  entity "general_diagnostics" as general_diagnostics <<main>> {
+    *id : bigint
+    patient_id : bigint
+    name : varchar
+    description : text
+    date : date
+    user_id : bigint
+  }
 }
 
-entity "Record" as record {
-  *id_historial : bigint
-  patient_id : bigint
-  diagnostic_id : bigint
-  tratamientos : text
-  fecha : date
+package "Síntomas" {
+  entity "symptoms" as symptoms <<aux>> {
+    *id : bigint
+    name : varchar
+    description : text
+  }
+  entity "clinical_case_symptoms" as clinical_case_symptoms <<aux>> {
+    *clinical_case_id : bigint
+    *symptom_id : bigint
+  }
 }
 
-entity "Enfermedad" as enfermedad {
-  *id : bigint
-  name : string
-}
+' Relaciones principales
+users ||--o{ patients : "cuida"
+users ||--o{ appointments : "atiende"
+users ||--o{ records : "autor"
+users ||--o{ prescriptions : "prescribe"
 
-entity "Alergia" as alergia {
-  *id : bigint
-  name : string
-}
+patients ||--o{ appointments : "agenda"
+patients ||--o{ clinical_cases : "casos"
+patients ||--o{ general_diagnostics : "diagnósticos generales"
+patients ||--o{ records : "registros"
+patients ||--o{ prescriptions : "recetas"
 
-entity "Enfermedad_Record" as enfermedad_record {
-  *id : bigint
-  enfermedad_id : bigint
-  record_id : bigint
-}
+appointments ||--o{ records : "registra"
+appointments ||--o{ prescriptions : "receta"
 
-entity "Alergia_Record" as alergia_record {
-  *id : bigint
-  alergia_id : bigint
-  record_id : bigint
-}
+clinical_cases ||--o{ diagnostics : "diagnósticos"
+clinical_cases ||--o{ clinical_case_symptoms : "síntomas"
+symptoms ||--o{ clinical_case_symptoms : "asociado"
 
-user --{ diagnostic : user_id
-patient --{ diagnostic : patient_id
-patient --{ record : patient_id
-diagnostic --{ record : diagnostic_id
-record --{ enfermedad_record : id_historial
-record --{ alergia_record : id_historial
-enfermedad --{ enfermedad_record : id
-diagnostic --{ enfermedad_record : enfermedad_id
-alergia --{ alergia_record : id
-alergia_record --{ record : record_id
-enfermedad_record --{ record : record_id
+diagnostics }o--|| clinical_cases : "caso clínico"
+general_diagnostics }o--|| patients : "paciente"
+records }o--|| patients : "paciente"
+records }o--|| appointments : "cita"
+prescriptions }o--|| records : "registro"
+prescriptions }o--|| appointments : "cita"
+
+' Separadores visuales
+/'
+  Usuarios y Pacientes
+  Atención Médica
+  Casos y Diagnósticos
+  Síntomas
+'/
 
 @enduml
+

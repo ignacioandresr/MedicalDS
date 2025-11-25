@@ -48,12 +48,13 @@ class GeneralDiagnosticController extends Controller
             'description' => 'required|string',
             'date' => 'nullable|date',
             'symptoms' => 'nullable|array',
+            'user_id' => 'required|integer|exists:users,id'
         ]);
 
         $general_diagnostic->update([
             'description' => $data['description'],
             'date' => $data['date'] ?? $general_diagnostic->date,
-            'user_id' => optional(auth()->user())->id,
+            'user_id' => $data['user_id'],
         ]);
 
         $general_diagnostic->symptoms()->sync($data['symptoms'] ?? []);
